@@ -323,7 +323,7 @@ function Home() {
     }
   }, [hotels]);
 
-  let newcomunes = [{ name: "Tutta l'isola" }];
+  let newcomunes = [{ name: "Anywhere" }];
   let communeSet = new Set(newcomunes.map((item) => item.name));
 
   let newstars = [{ name: "Tutti" }];
@@ -410,7 +410,7 @@ function Home() {
             config={config}
             handleConfigChange={handleConfigChange}
           />
-          {hotels.length ? (
+          {hotels ? (
             <MainSection
               config={config}
               hotels={hotels}

@@ -24,7 +24,7 @@ const DropdownGroup = ({
     const [open, setOpen] = useState(false);
     let activeIndex = data[index];
 
-    if (!data.length || !activeIndex) activeIndex = { name: "Tutta l'isola" };
+    if (!data.length || !activeIndex) activeIndex = { name: "Anywhere" };
 
     return (
         <>

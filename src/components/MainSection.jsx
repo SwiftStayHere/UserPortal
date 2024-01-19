@@ -581,7 +581,7 @@ const MainSection = ({
     fascio: { min: 0, max: 5000 },
     distance: { min: 0, max: 5000 },
     stelle: 0,
-    comune: "Tutta l'isola",
+    comune: "Anywhere",
   });
 
   useEffect(() => {
@@ -677,7 +677,7 @@ const MainSection = ({
       if (
         hotel?.bestPossiblePrice <= filters.fascio.max &&
         hotel?.bestPossiblePrice >= filters.fascio.min &&
-        (filters.comune == "Tutta l'isola"
+        (filters.comune == "Anywhere"
           ? 1
           : hotel?.state == filters.comune) &&
         (filters.stelle == 0 ? 1 : filters.stelle == hotel?.rating) &&

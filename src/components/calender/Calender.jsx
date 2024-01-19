@@ -86,7 +86,7 @@ export default function Calender({ handler, setCheckData, setConfig, config }) {
                 checkOutDate: data.end,
                 fascio: { name: 'Tutti', value: 0 },
                 distance: { name: 'Tutti', value: 0 },
-                comune: { name: "Tutta l'isola" },
+                comune: { name: "Anywhere" },
                 stelle: { name: 'Tutti' },
             });
             handler(false);
