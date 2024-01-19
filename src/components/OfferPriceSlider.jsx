@@ -272,7 +272,7 @@ const OfferPriceSlider = (
   return (
     <>
       <div className="offer-item-middle-title gap-2 mb-3">
-        <span>Selezionate per te</span>
+        <span>Selected for you</span>
         {innerOffers.length > 1 ? (
           <div className="d-flex gap-2">
             <span
@@ -351,9 +351,9 @@ const OfferPriceSlider = (
                 >
                   <div className="short-info">
                     <div className="info">
-                      <div className="duration">Dal</div>
+                      <div className="duration">From</div>
                       <div className="duration">
-                        {formatItalianDate(new Date(item?.startDate))} al{" "}
+                        {formatItalianDate(new Date(item?.startDate))} to{" "}
                         {formatItalianDate(new Date(item?.endDate))}
                       </div>
                     </div>
@@ -380,8 +380,8 @@ const OfferPriceSlider = (
                   <div className="text--small">
                     {calculateNightsNew(item?.minStay, item?.maxStay)}
                     {(calculateNightsNew(item?.minStay, item?.maxStay) === 1 &&
-                      " Notte ") ||
-                      " Notti "}
+                      " Night ") ||
+                      " Nights "}
                     -{" "}
                     {item?.minStay === item?.maxStay
                       ? item.breakdown[breakDownTypeChecker(item) - 1].name
@@ -407,7 +407,7 @@ const OfferPriceSlider = (
           onClick={() => setInnerCollapse(!innerCollapse)}
         >
           <span className={`${innerCollapse ? "text-title" : ""}`}>
-            Richiedi Preventivo
+            Want to request the quote ?
           </span>{" "}
           {innerCollapse ? <AngleUp /> : <AngleDown />}
         </button>
@@ -430,7 +430,7 @@ const OfferPriceSlider = (
                     )}
                   />
 
-                  <span>Bevande {activeData?.beverageAvailability}</span>
+                  <span>Beverage {activeData?.beverageAvailability}</span>
                 </div>
                 <h3>
                   {calculateNightsNew(activeData?.minStay, activeData?.maxStay)}
@@ -438,8 +438,8 @@ const OfferPriceSlider = (
                     activeData?.minStay,
                     activeData?.maxStay
                   ) === 1 &&
-                    " Notte ") ||
-                    " Notti "}
+                    " Night ") ||
+                    " Nights "}
                 </h3>
               </div>
               <ul className="check-lists">
@@ -455,8 +455,7 @@ const OfferPriceSlider = (
                 )}
               </ul>
               <blockquote className="mb-4 blockquote">
-                PER QUESTA OFFERTA PUOI PAGARE CON INTERESSI ZERO IN 3 COMODE
-                RATE CON SCALAPAY{" "}
+                FOR THIS OFFER YOU CAN PAY WITH ZERO INTEREST IN 3 CONVENIENT INSTALLMENTS WITH SCALAPAY{" "}
               </blockquote>
               <div className="text-center">
                 <img src={scalapay} alt="" className="mw-100" />
@@ -547,23 +546,23 @@ const OfferPriceSlider = (
 const infos = [
   {
     icon: [<Ship />],
-    title: "In questa offerta rientra: Aliscafo + Transfer",
-    text: "FORMULA VIP: Aliscafo + Transfer in hotel (andata e ritorno) €35 a persona invece di € 71,00\nFORMULA VIP: Traghetto + Transfer in hotel (andata e ritorno) €25 a persona invece di € 71,00",
+    title: "This offer includes: Hydrofoil + Transfer",
+    text: "VIP FORMULA: Hydrofoil + Transfer to the hotel (round trip) €35 per person instead of €71.00 VIP FORMULA: Ferry + Transfer to the hotel (round trip) €25 per person instead of €71.00",
   },
   {
     icon: [<Ship />, <Car />],
-    title: "In questa offerta rientra: Traghetto + Auto",
-    text: "Auto (fino a 4 metri) con conducente a € 70,00 (invece di € 130,00) andata a ritorno. Per i passeggeri il costo è di € 17 a passeggero.",
+    title: "This offer includes: Ferry + Car",
+    text: "Car (up to 4 meters) with driver for €70.00 (instead of €130.00) return. For passengers the cost is €17 per passenger.",
   },
   {
     icon: [<Bus />],
-    title: "In questa offerta rientra: Bus da oltre 120 città italiane",
-    text: "Bus dalle principali città italiane fino in hotel, incluso biglietto traghetto facchinaggio e trasporto bagagli, a partire da € 69,00 a persona andata e ritorno.",
+    title: "This offer includes: Buses from over 120 Italian cities",
+    text: "Bus from the main Italian cities to the hotel, including ferry ticket, porterage and luggage transport, starting from €69.00 per person return.",
   },
   {
     icon: [<Train />],
-    title: "In questa offerta rientra: Treno dall'Italia",
-    text: "Treno dalle principali città italiane, con transfer dalla stazione di Napoli al porto, passaggi marittimi da Napoli per Ischia, taxi dal porto fino all'hotel, andata e ritorno, a partire da € 160,00 a persona.",
+    title: "This offer includes: Train from Italy",
+    text: "Train from the main Italian cities, with transfer from Naples station to the port, sea passages from Naples to Ischia, taxi from the port to the hotel, round trip, starting from €160.00 per person.",
   },
 ];
 

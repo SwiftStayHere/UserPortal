@@ -84,10 +84,10 @@ export default function Calender({ handler, setCheckData, setConfig, config }) {
                 ...config,
                 checkInDate: data.start,
                 checkOutDate: data.end,
-                fascio: { name: 'Tutti', value: 0 },
-                distance: { name: 'Tutti', value: 0 },
-                comune: { name: "Anywhere" },
-                stelle: { name: 'Tutti' },
+                fascio: { name: 'All', value: 0 },
+                distance: { name: 'All', value: 0 },
+                comune: { name: "All" },
+                stelle: { name: 'All' },
             });
             handler(false);
         }

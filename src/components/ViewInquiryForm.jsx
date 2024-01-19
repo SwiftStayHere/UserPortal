@@ -557,8 +557,8 @@ return (
                 value={userData.Nome}
                 name="Nome"
                 handleChange={handleChange}
-                label="Nome"
-                placeholder="Il tuo nome"
+                label="Name"
+                placeholder="Your name"
               />
             </div>
             <div className="col-sm-6 col-md-3 relative">
@@ -569,8 +569,8 @@ return (
                   name="Cognome"
                   value={userData.Cognome}
                   handleChange={handleChange}
-                  label="Cognome"
-                  placeholder="Il tuo cognome"
+                  label="Surname"
+                  placeholder="Your surname"
                 />
               </div>
             </div>
@@ -582,13 +582,13 @@ return (
                 value={userData.Email}
                 handleChange={handleChange}
                 name="Email"
-                placeholder="La tua email"
+                placeholder="Your email"
               />
             </div>
             <div className="col-sm-6 col-md-3">
               <Input
                 required
-                label="Numero di Telefono"
+                label="Telephone number"
                 type="tel"
                 value={userData.Phone}
                 handleChange={handleChange}
@@ -597,30 +597,6 @@ return (
               />
             </div>
             <div className="col-sm-6 col-md-3 col-lg-2 relative">
-              {/* <div className="">
-                                    <Input
-                                        handleChange={(e) => {
-                                            setDeparture(e.target.value);
-                                            handleDepartureChange(e);
-                                        }}
-                                        value={departure}
-                                        name="departure"
-                                        // min={minDepartureDate}
-                                        // max={maxDepartureDate}
-                                        label="Data Check In"
-                                        type="date"
-                                        id="departureDatePicker"
-                                        ref={departureRef}
-                                        readOnly={readOnly}
-                                        placeholder="Seleziona la data"
-                                        placeholderMin="Seleziona la data di partenza &nbsp; &nbsp;&nbsp;&nbsp;"
-                                        hasValue={departure && departure.length ? true : false}
-                                        onKeyDown={(e) => {
-                                            e.preventDefault();
-                                        }}
-                                    />
-                                </div> */}
-
               <div
                 className="right-sm-0 w-100"
                 style={{ opacity: `${readOnly ? "0.8" : "1"}` }}
@@ -640,8 +616,8 @@ return (
                       )
                     }
                     selected={departure}
-                    label="Data Check In"
-                    placeholder="Seleziona la data"
+                    label="Check In Date"
+                    placeholder="Select the date"
                     handleChange={(value) => {
                       let persistDateNew = { ...persistDate };
                       persistDateNew[idx] = value;
@@ -680,8 +656,8 @@ return (
                     }
                     selected={departure}
                     isDateDisabled={disabledDates}
-                    label="Data Check In"
-                    placeholder="Seleziona la data"
+                    label="Check In date"
+                    placeholder="Select the date"
                     handleChange={(value) => {
                       let persistDateNew = { ...persistDate };
                       persistDateNew[idx] = value;
@@ -706,56 +682,8 @@ return (
                   />
                 )}
               </div>
-
-              {/* <Input
-                                        placeholder="Seleziona la data di partenza"
-                                        label="Data Check In"
-                                        value={userData.departure}
-                                        style={{
-                                            // textAlign: 'center',
-                                            paddingLeft: '7%',
-                                        }}
-                                        readOnly={true}
-                                        onClick={(e) => {
-                                            try {
-                                                if (!readOnly) departureRef?.current?.focus();
-                                            } catch (err) {
-                                                console.log(err);
-                                            }
-                                        }}
-                                    /> */}
             </div>
             <div className="col-sm-6 col-md-3 col-lg-2 relative">
-              {/* <div className="">
-                                    <Input
-                                        handleChange={(e) => {
-                                            setArrival(e.target.value);
-                                            handleArrivalChange(e);
-                                        }}
-                                        value={arrival}
-                                        name="arrival"
-                                        id="arrivalDatePicker"
-                                        // min={minArrivalDate}
-                                        // max={maxArrivalDate}
-                                        required
-                                        label="Data Check Out"
-                                        ref={arrivalRef}
-                                        placeholder="Seleziona la data"
-                                        placeholderMin="Seleziona la data di arrivo &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-                                        type="date"
-                                        readOnly={readOnly}
-                                        hasValue={arrival && arrival.length ? true : false}
-                                        onClick={(e) => {
-                                            try {
-                                                arrivalRef?.current?.showPicker();
-                                            } catch (err) {}
-                                        }}
-                                        onKeyDown={(e) => {
-                                            e.preventDefault();
-                                        }}
-                                    />
-                                </div> */}
-
               <div
                 className="right-sm-0 w-100"
                 style={{ opacity: `${readOnlyArrival ? "0.8" : "1"}` }}
@@ -773,8 +701,8 @@ return (
                     maxDate={new Date(offer.endDate)}
                     setDatePickerOpen={setDatePickerOpen}
                     selected={arrival}
-                    label="Data Check Out"
-                    placeholder="Seleziona la data di arrivo"
+                    label="Check Out Date"
+                    placeholder="Select arrival date"
                     handleChange={(value) => {
                       setArrival(value);
                       handleArrivalChange(value);
@@ -805,8 +733,8 @@ return (
                     setDatePickerOpen={setDatePickerOpen}
                     isDateDisabled={disabledDates}
                     selected={arrival}
-                    label="Data Check Out"
-                    placeholder="Seleziona la data di arrivo"
+                    label="Check Out Date"
+                    placeholder="Select arrival Date"
                     handleChange={(value) => {
                       setArrival(value);
                       handleArrivalChange(value);
@@ -823,27 +751,6 @@ return (
                   />
                 )}
               </div>
-
-              <div className="absolute top-0 left-0 w-100 px-2">
-                {/* <Input
-                                        placeholder="Seleziona la data di arrivo"
-                                        label="Data Check Out"
-                                        value={userData.arrival}
-                                        readOnly={true}
-                                        style={{
-                                            // textAlign: 'center',
-                                            paddingLeft: '7%',
-                                        }}
-                                        onClick={(e) => {
-                                            try {
-                                                if (!readOnly) arrivalRef?.current?.showPicker();
-                                                // arrivalRef.current.style.opacity = 1;
-                                            } catch (err) {
-                                                console.log(err);
-                                            }
-                                        }}
-                                    /> */}
-              </div>
             </div>
             <div className="col-sm-6 col-md-3 col-lg-2">
               <Input
@@ -855,7 +762,7 @@ return (
                   });
                 }}
                 name="packageBoard"
-                label="Pacchetto"
+                label="Package"
                 select
                 required
                 options={breakdownNames}
@@ -882,13 +789,13 @@ return (
                   handleAddRoom();
                 }}
               >
-                <span>Aggiungi Stanza</span>
+                <span>Add Room</span>
                 <Plus2 />
               </span>
             </div>
           </div>
           <h5 ref={optionRef} className="mt-4 r-title">
-            Offerta con
+            Offer with
           </h5>
           <div ref={optionRef} className="__form-radio-group pt-2">
             <label className="__form-radio">
@@ -900,9 +807,9 @@ return (
                   checked={value === "none"}
                   onChange={(e) => setvalue("none")}
                 />
-                <div className="form-check-label">Nessuna Opzione</div>
+                <div className="form-check-label">No Options</div>
               </div>
-              <div className="text">Nessun trasporto incluso</div>
+              <div className="text">No Transportation Included</div>
             </label>
             <label className="__form-radio">
               <div className="form-check">
@@ -913,11 +820,10 @@ return (
                   checked={value === "aliscafo"}
                   onChange={(e) => setvalue("aliscafo")}
                 />
-                <div className="form-check-label">Aliscafo + Transfer</div>
+                <div className="form-check-label">Hydrofoil + Transfer</div>
               </div>
               <div className="text">
-                Aliscafo da Napoli Beverello A/R € 35 compreso trasferimenti
-                porto hotel
+              Hydrofoil from Naples Beverello return €35 including port hotel transfers
               </div>
               {value == "aliscafo" && (
                 <>
@@ -927,7 +833,7 @@ return (
                     name="bags"
                     type="number"
                     value={userData.bags}
-                    label="Numero di Bagagli *"
+                    label="Number of Baggage *"
                     // select
                     // options={options}
                   />
@@ -943,11 +849,10 @@ return (
                   checked={value === "ferry"}
                   onChange={(e) => setvalue("ferry")}
                 />
-                <div className="form-check-label">Traghetto + Transfer</div>
+                <div className="form-check-label">Cab + Transfer</div>
               </div>
               <div className="text">
-                Traghetto da Napoli Calata porta di Massa o Pozzuoli A/R € 25
-                compreso trasferimenti porto hotel
+              Ferry from Naples Calata port of Massa or Pozzuoli return €25 including port hotel transfers
               </div>
               {value == "ferry" && (
                 <>
@@ -956,7 +861,7 @@ return (
                     value={userData.carSize}
                     handleChange={handleChange}
                     name={"carSize"}
-                    label="Dimensione Auto"
+                    label="Cab size"
                     select
                     options={options2}
                     //
@@ -964,34 +869,6 @@ return (
                 </>
               )}
             </label>
-            {/* <label className="__form-radio">
-                        <div className="form-check">
-                            <input
-                                className="form-check-input"
-                                type="radio"
-                                name="offer-with"
-                                onChange={(e) => setvalue('high-speed')}
-                            />
-                            <div className="form-check-label">High Speed Train</div>
-                        </div>
-                        <div className="text">
-                            Train from the main Italian cities, with transfer from Naples station to the port, sea
-                            passages from Naples to Ischia, taxi from the port to the hotel starting from € 160.00 per
-                            person round trip.
-                        </div>
-                        {value == 'high-speed' && (
-                            <>
-                                <br />
-                                <Input
-                                    handleChange={handleChange}
-                                    name="numeroBaggliTrain"
-                                    label="Numero di Bagagli"
-                                    select
-                                    options={options}
-                                />
-                            </>
-                        )}
-                    </label> */}
             <label className="__form-radio">
               <div className="form-check">
                 <input
@@ -1001,10 +878,10 @@ return (
                   checked={value === "viaggio"}
                   onChange={(e) => setvalue("viaggio")}
                 />
-                <div className="form-check-label">Viaggio dalla tua citta</div>
+                <div className="form-check-label">I travel from your city</div>
               </div>
               <div className="text">
-                Viaggio incluso dalla tua città fino al trasferimento all'hotel
+              Travel included from your city to hotel drop-off  
               </div>
               {value == "viaggio" && (
                 <div className="row g-3 mt-2">
@@ -1013,21 +890,11 @@ return (
                       name="trasporto"
                       handleChange={handleChange}
                       value={userData.trasporto}
-                      label="Tipo di trasporto preferito"
+                      label="Preferred type of transport"
                       select
                       options={options3}
                     />
                   </div>
-                  {/* <div className="col-sm-4">
-                      <Input1
-                        name="country"
-                        handleChange={handleChange}
-                        value={userData.country}
-                        label="Country di Partenza"
-                        select
-                        options={europeanCountries}
-                      />
-                    </div> */}
                   <div className="col-sm-6">
                     <Autocomplete
                       onLoad={(autocomplete) => setAutocomplete(autocomplete)}
@@ -1036,14 +903,14 @@ return (
                       }}
                       options={{
                         types: ["(cities)"],
-                        language: "it",
+                        language: "in",
                       }}
         
                     >
                       <Input
                         type="text"
-                        label="Città de Partenza"
-                        placeholder="Inserisci la città di partenza"
+                        label="City of departure"
+                        placeholder="Enter the city of Departure"
                         value={userData.Citta}
                         name="Citta"
                         handleChange={handleChange}
@@ -1064,16 +931,15 @@ return (
           </div>
           <br />
           <div className="msg-txt mb-4">
-            Per offrirvi il miglior servizio Vi preghiamo di specificare, nel
-            campo che segue, maggiori informazioni per i trasferimenti ed
-            eventuali esigenze per la vostra vacanza
+          To offer you the best service, please specify, in the field below, more information for transfers and any needs for your holiday
+
           </div>
           <textarea
             value={userData.note}
             name="note"
             onChange={handleChange}
             className="form-control __form-control p-3"
-            placeholder="Note Extra, Richieste Particolari, Etc..."
+            placeholder="Extra Notes, Special Requests, Etc..."
           ></textarea>
           <div className="mt-3"></div>
           <label className="form-check form--check">
@@ -1085,15 +951,13 @@ return (
               id="flexCheckDefault"
             />
             <span className="form-check-label">
-              Ho preso visione e acconsento al{" "}
+              I have read and consent to the{" "}
               <a
-                href="https://www.hoescape.com/privacy-policy/"
+                href="#"
                 className="text-base"
-                target="_blank"
                 rel="noreferrer"
               >
-                trattamento dei miei dati personali in conformitä al Regolamento
-                europeo 679/2016 *
+                processing of my personal data in accordance with European Regulation 679/2016 *
               </a>
             </span>
           </label>
@@ -1106,8 +970,7 @@ return (
               id="flexCheckDefault"
             />
             <span className="form-check-label">
-              Dichiaro di volermi iscrivere al servizio newsletter per ricevere
-              Ie migliori offerte
+            Dichiaro di volermi iscrivere al servizio newsletter per ricevere Ie migliori offerte
             </span>
           </label>
           {buttonDisabled ? (
@@ -1117,7 +980,7 @@ return (
                 className="cmn-btn w-100"
                 type="button"
               >
-                Preventivo Inviato
+                Quote Sent
               </button>
             </div>
           ) : (
@@ -1127,7 +990,7 @@ return (
                   <img style={{ width: "25px" }} src={loading} alt="loading" />
                 ) : (
                   <>
-                    Richiedi Preventivo <Send />
+                    Request Quote <Send />
                   </>
                 )}
               </button>

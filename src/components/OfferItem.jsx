@@ -51,8 +51,8 @@ const OfferItem = (props, ref) => {
   const [offerOpen, setOfferOpen] = useState(false);
   const [offerButtonIn, setOfferButtonIn] = useState(true);
 
-  const [departure,setDeparture] = useState("")
-  const [arrival,setArrival] = useState("")
+  const [departure, setDeparture] = useState("")
+  const [arrival, setArrival] = useState("")
   const [readOnly, setReadOnly] = useState(false);
   const [readOnlyArrival, setReadOnlyArrival] = useState(false);
 
@@ -72,8 +72,8 @@ const OfferItem = (props, ref) => {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem("prevInDate",new Date(checkInDate));
-    localStorage.setItem("prevOutDate",new Date(checkOutDate));
+    localStorage.setItem("prevInDate", new Date(checkInDate));
+    localStorage.setItem("prevOutDate", new Date(checkOutDate));
     if (!offersLoaded) {
       // Assuming hotel.offers is an array of offer objects with properties like startDate, endDate, and minNightsRequired.
 
@@ -118,15 +118,15 @@ const OfferItem = (props, ref) => {
 
         const aFlexibility =
           aStartDate - selectedStartDate.getTime() <=
-            flexibility * 24 * 60 * 60 * 1000 &&
+          flexibility * 24 * 60 * 60 * 1000 &&
           selectedEndDate.getTime() - aEndDate <=
-            flexibility * 24 * 60 * 60 * 1000;
+          flexibility * 24 * 60 * 60 * 1000;
 
         const bFlexibility =
           bStartDate - selectedStartDate.getTime() <=
-            flexibility * 24 * 60 * 60 * 1000 &&
+          flexibility * 24 * 60 * 60 * 1000 &&
           selectedEndDate.getTime() - bEndDate <=
-            flexibility * 24 * 60 * 60 * 1000;
+          flexibility * 24 * 60 * 60 * 1000;
 
         if (aFlexibility && !bFlexibility) {
           return -1;
@@ -215,28 +215,28 @@ const OfferItem = (props, ref) => {
   }
   function reFilterOffers(offerNum) {
     let tempArray = [];
-    for(let i=0;i<offerNum?.length - 1;i++){
-      for(let j =i+1;j<offerNum?.length;j++){
-        if(offerNum[i].startDate==offerNum[j].startDate && offerNum[i].endDate==offerNum[j].endDate){
-          if((offerNum[i]?.minStay===offerNum[j].minStay) && (offerNum[i]?.maxStay===offerNum[j].maxStay)){
-            if((offerNum[i]?.breakdown[0]?.price !== 0 && offerNum[j].breakdown[0]?.price === 0 ) || (offerNum[i]?.breakdown[0]?.price === 0 && offerNum[j].breakdown[0]?.price !== 0 ) || (offerNum[i]?.breakdown[0]?.price === 0 && offerNum[j].breakdown[0]?.price === 0 )){
-              if((offerNum[i]?.breakdown[1]?.price !== 0 && offerNum[j].breakdown[1]?.price === 0 ) || (offerNum[i]?.breakdown[1]?.price === 0 && offerNum[j].breakdown[1]?.price !== 0 ) || (offerNum[i]?.breakdown[1]?.price === 0 && offerNum[j].breakdown[1]?.price === 0 )){
-                if((offerNum[i]?.breakdown[2]?.price !== 0 && offerNum[j].breakdown[2]?.price === 0 ) || (offerNum[i]?.breakdown[2]?.price === 0 && offerNum[j].breakdown[2]?.price !== 0 ) || (offerNum[i]?.breakdown[2]?.price === 0 && offerNum[j].breakdown[2]?.price === 0 )){
+    for (let i = 0; i < offerNum?.length - 1; i++) {
+      for (let j = i + 1; j < offerNum?.length; j++) {
+        if (offerNum[i].startDate == offerNum[j].startDate && offerNum[i].endDate == offerNum[j].endDate) {
+          if ((offerNum[i]?.minStay === offerNum[j].minStay) && (offerNum[i]?.maxStay === offerNum[j].maxStay)) {
+            if ((offerNum[i]?.breakdown[0]?.price !== 0 && offerNum[j].breakdown[0]?.price === 0) || (offerNum[i]?.breakdown[0]?.price === 0 && offerNum[j].breakdown[0]?.price !== 0) || (offerNum[i]?.breakdown[0]?.price === 0 && offerNum[j].breakdown[0]?.price === 0)) {
+              if ((offerNum[i]?.breakdown[1]?.price !== 0 && offerNum[j].breakdown[1]?.price === 0) || (offerNum[i]?.breakdown[1]?.price === 0 && offerNum[j].breakdown[1]?.price !== 0) || (offerNum[i]?.breakdown[1]?.price === 0 && offerNum[j].breakdown[1]?.price === 0)) {
+                if ((offerNum[i]?.breakdown[2]?.price !== 0 && offerNum[j].breakdown[2]?.price === 0) || (offerNum[i]?.breakdown[2]?.price === 0 && offerNum[j].breakdown[2]?.price !== 0) || (offerNum[i]?.breakdown[2]?.price === 0 && offerNum[j].breakdown[2]?.price === 0)) {
                   tempArray.push(offerNum[i]);
                   let temp = JSON.parse(JSON.stringify(offerNum[i]));
-                  temp.breakdown[0].price = Math.max(offerNum[i].breakdown[0]?.price,offerNum[j].breakdown[0]?.price);
-                  temp.breakdown[1].price = Math.max(offerNum[i].breakdown[1]?.price,offerNum[j].breakdown[1]?.price);
-                  temp.breakdown[2].price = Math.max(offerNum[i].breakdown[2]?.price,offerNum[j].breakdown[2]?.price);
-                  
-                  offerNum[i]=temp;
-                  offerNum.splice(j,1)
+                  temp.breakdown[0].price = Math.max(offerNum[i].breakdown[0]?.price, offerNum[j].breakdown[0]?.price);
+                  temp.breakdown[1].price = Math.max(offerNum[i].breakdown[1]?.price, offerNum[j].breakdown[1]?.price);
+                  temp.breakdown[2].price = Math.max(offerNum[i].breakdown[2]?.price, offerNum[j].breakdown[2]?.price);
+
+                  offerNum[i] = temp;
+                  offerNum.splice(j, 1)
                   break;
                 }
               }
             }
           }
         }
-        
+
       }
     }
 
@@ -246,92 +246,92 @@ const OfferItem = (props, ref) => {
   function filterOffers(offers, tempStartDate, tempEndDate) {
     const maxDaysDifference = 3;
     return offers?.filter((offer) => {
-        const offerStartDate = new Date(offer?.startDate);
-        const offerEndDate = new Date(offer?.endDate);
-        const current = new Date();
-        offerStartDate.setHours(0, 0, 0, 0);
-        offerEndDate.setHours(0, 0, 0, 0);
-        const tempStartDateObj = new Date(tempStartDate);
-        const tempEndDateObj = new Date(tempEndDate);
+      const offerStartDate = new Date(offer?.startDate);
+      const offerEndDate = new Date(offer?.endDate);
+      const current = new Date();
+      offerStartDate.setHours(0, 0, 0, 0);
+      offerEndDate.setHours(0, 0, 0, 0);
+      const tempStartDateObj = new Date(tempStartDate);
+      const tempEndDateObj = new Date(tempEndDate);
 
-        const oneAndHalfMonthsLater = new Date(tempEndDateObj);
-        oneAndHalfMonthsLater.setMonth(oneAndHalfMonthsLater.getMonth() + 1);
-        oneAndHalfMonthsLater.setDate(oneAndHalfMonthsLater.getDate() + 15); 
-        const daysDiffStart = Math.abs((offerStartDate - tempStartDateObj) / (1000 * 60 * 60 * 24));
-        const daysDiffEnd = Math.abs((offerEndDate - tempEndDateObj) / (1000 * 60 * 60 * 24));
-        const specialCase = Math.abs((offerEndDate - current) / (1000 * 60 * 60 * 24));
+      const oneAndHalfMonthsLater = new Date(tempEndDateObj);
+      oneAndHalfMonthsLater.setMonth(oneAndHalfMonthsLater.getMonth() + 1);
+      oneAndHalfMonthsLater.setDate(oneAndHalfMonthsLater.getDate() + 15);
+      const daysDiffStart = Math.abs((offerStartDate - tempStartDateObj) / (1000 * 60 * 60 * 24));
+      const daysDiffEnd = Math.abs((offerEndDate - tempEndDateObj) / (1000 * 60 * 60 * 24));
+      const specialCase = Math.abs((offerEndDate - current) / (1000 * 60 * 60 * 24));
 
-        let numofnights = 0;
-        if (offer.minStay == offer.maxStay) {
+      let numofnights = 0;
+      if (offer.minStay == offer.maxStay) {
+        numofnights = offer.maxStay;
+      } else {
+        if (requiredNights <= offer.minStay) {
+          numofnights = offer.minStay;
+        }
+        else if (requiredNights >= offer.maxStay) {
           numofnights = offer.maxStay;
-        } else {
-          if(requiredNights<=offer.minStay){
-            numofnights=offer.minStay;
-          }
-          else if(requiredNights>=offer.maxStay){
-            numofnights=offer.maxStay;
-          }
-          else{
-            for(let j = offer.minStay+1;j<offer.maxStay;j++){
-              if(j==requiredNights){
-                numofnights=j;
-              }
+        }
+        else {
+          for (let j = offer.minStay + 1; j < offer.maxStay; j++) {
+            if (j == requiredNights) {
+              numofnights = j;
             }
           }
         }
-
-        const startDateValid = (daysDiffStart <= maxDaysDifference && daysDiffStart >= (maxDaysDifference * -1));
-        const endDateValid = (daysDiffEnd <= maxDaysDifference && daysDiffEnd >= (maxDaysDifference * -1));
-        const nightsDifferenceValid = Math.abs(requiredNights - numofnights) <= 2;
-
-        if((0>=( offerStartDate - tempStartDateObj)  && 0>=(tempStartDateObj - offerEndDate)) && (0>=(offerStartDate - tempEndDateObj) && 0>=(tempEndDateObj - offerEndDate))){
-          return (
-            requiredNights + 2 >= numofnights &&
-            // requiredNights -2 <= numofnights &&
-            specialCase >= numofnights + 1 &&
-            (offer.numofnights = numofnights)
-          );
       }
-        else if((0>=( offerStartDate - tempStartDateObj)  && 0>=(tempStartDateObj -offerEndDate)) && !(0>=(offerStartDate - tempEndDateObj) && 0>=(tempEndDateObj - offerEndDate))){
-          const userNight = Math.abs((offerEndDate - tempStartDateObj) / (1000 * 60 * 60 * 24));
-          return (
-            requiredNights-2-userNight<=userNight &&
-            requiredNights +2 >= numofnights && 
-            specialCase >= numofnights + 1 &&
-            (offer.numofnights = numofnights)
-          );
-      }
-        else if(!(0>=( offerStartDate - tempStartDateObj)  && 0>=(tempStartDateObj -offerEndDate)) && (0>=(offerStartDate - tempEndDateObj) && 0>=(tempEndDateObj - offerEndDate))){
-          const userNight = Math.abs((offerStartDate - tempEndDateObj) / (1000 * 60 * 60 * 24));
-          return (
-            requiredNights-2-userNight<=userNight &&
-            requiredNights +2 >= numofnights && 
-            specialCase >= numofnights + 1 &&
-            (offer.numofnights = numofnights)
-          );
-      }
-          if(Math.abs(requiredNights - numofnights) >=0 && nightsDifferenceValid){
-            return (
-              requiredNights + 2 >= numofnights &&
-              requiredNights -2 <= numofnights &&
-              oneAndHalfMonthsLater>offerStartDate &&
-              specialCase >= numofnights + 1 &&
-              (offer.numofnights = numofnights)
-            );
-          }
 
-      })
+      const startDateValid = (daysDiffStart <= maxDaysDifference && daysDiffStart >= (maxDaysDifference * -1));
+      const endDateValid = (daysDiffEnd <= maxDaysDifference && daysDiffEnd >= (maxDaysDifference * -1));
+      const nightsDifferenceValid = Math.abs(requiredNights - numofnights) <= 2;
+
+      if ((0 >= (offerStartDate - tempStartDateObj) && 0 >= (tempStartDateObj - offerEndDate)) && (0 >= (offerStartDate - tempEndDateObj) && 0 >= (tempEndDateObj - offerEndDate))) {
+        return (
+          requiredNights + 2 >= numofnights &&
+          // requiredNights -2 <= numofnights &&
+          specialCase >= numofnights + 1 &&
+          (offer.numofnights = numofnights)
+        );
+      }
+      else if ((0 >= (offerStartDate - tempStartDateObj) && 0 >= (tempStartDateObj - offerEndDate)) && !(0 >= (offerStartDate - tempEndDateObj) && 0 >= (tempEndDateObj - offerEndDate))) {
+        const userNight = Math.abs((offerEndDate - tempStartDateObj) / (1000 * 60 * 60 * 24));
+        return (
+          requiredNights - 2 - userNight <= userNight &&
+          requiredNights + 2 >= numofnights &&
+          specialCase >= numofnights + 1 &&
+          (offer.numofnights = numofnights)
+        );
+      }
+      else if (!(0 >= (offerStartDate - tempStartDateObj) && 0 >= (tempStartDateObj - offerEndDate)) && (0 >= (offerStartDate - tempEndDateObj) && 0 >= (tempEndDateObj - offerEndDate))) {
+        const userNight = Math.abs((offerStartDate - tempEndDateObj) / (1000 * 60 * 60 * 24));
+        return (
+          requiredNights - 2 - userNight <= userNight &&
+          requiredNights + 2 >= numofnights &&
+          specialCase >= numofnights + 1 &&
+          (offer.numofnights = numofnights)
+        );
+      }
+      if (Math.abs(requiredNights - numofnights) >= 0 && nightsDifferenceValid) {
+        return (
+          requiredNights + 2 >= numofnights &&
+          requiredNights - 2 <= numofnights &&
+          oneAndHalfMonthsLater > offerStartDate &&
+          specialCase >= numofnights + 1 &&
+          (offer.numofnights = numofnights)
+        );
+      }
+
+    })
       .sort((a, b) => {
         if (a?.startDate === b?.startDate) {
-          if(a?.endDate===b?.endDate){
+          if (a?.endDate === b?.endDate) {
             const numofnightsA = a?.numofnights;
             const numofnightsB = b?.numofnights;
-            if ((numofnightsA-requiredNights) === (numofnightsB-requiredNights)) {
+            if ((numofnightsA - requiredNights) === (numofnightsB - requiredNights)) {
               const priceA = calculateOfferPrice(a);
               const priceB = calculateOfferPrice(b);
-            return priceA - priceB;
+              return priceA - priceB;
             }
-            return Math.abs(numofnightsA-requiredNights) - Math.abs(numofnightsB-requiredNights);
+            return Math.abs(numofnightsA - requiredNights) - Math.abs(numofnightsB - requiredNights);
           }
           return new Date(a?.endDate) - new Date(b?.endDate);
         }
@@ -341,56 +341,56 @@ const OfferItem = (props, ref) => {
   let offerNum = filterOffers(offers, checkInDate, checkOutDate);
   // let offerNum = reFilterOffers(offerNum2);
   // let offerNum = filterOffers(offers, checkInDate, checkOutDate);
-  let bestOfferIndex =0;
+  let bestOfferIndex = 0;
   let diffOffer = 10000000;
-    for(let i = 0;i<offerNum?.length;i++){
-      const startDiff = Math.abs((new Date(offerNum[i]?.startDate) - new Date(checkInDate)) / (1000 * 60 * 60 * 24));
-        const endDiff = Math.abs((new Date(offerNum[i]?.endDate) - new Date(checkOutDate)) / (1000 * 60 * 60 * 24));
-        const diff = Math.abs(startDiff+endDiff);
-        if(diff < diffOffer){
-          diffOffer=diff;
-          bestOfferIndex=i;
-        }
+  for (let i = 0; i < offerNum?.length; i++) {
+    const startDiff = Math.abs((new Date(offerNum[i]?.startDate) - new Date(checkInDate)) / (1000 * 60 * 60 * 24));
+    const endDiff = Math.abs((new Date(offerNum[i]?.endDate) - new Date(checkOutDate)) / (1000 * 60 * 60 * 24));
+    const diff = Math.abs(startDiff + endDiff);
+    if (diff < diffOffer) {
+      diffOffer = diff;
+      bestOfferIndex = i;
+    }
   }
   let newOfferArray = [];
-  if(bestOfferIndex!=0) {
-    let tempo=offerNum[bestOfferIndex];
-    offerNum[bestOfferIndex]=offerNum[bestOfferIndex-1];
-    offerNum[bestOfferIndex-1] = tempo;
-    bestOfferIndex=bestOfferIndex-1;
+  if (bestOfferIndex != 0) {
+    let tempo = offerNum[bestOfferIndex];
+    offerNum[bestOfferIndex] = offerNum[bestOfferIndex - 1];
+    offerNum[bestOfferIndex - 1] = tempo;
+    bestOfferIndex = bestOfferIndex - 1;
   }
-  for(let i =bestOfferIndex;i<offerNum?.length;i++){
+  for (let i = bestOfferIndex; i < offerNum?.length; i++) {
     newOfferArray.push(offerNum[i]);
   }
-  newOfferArray=reFilterOffers(newOfferArray)
+  newOfferArray = reFilterOffers(newOfferArray)
   let bestPossiblePrice = 10000;
-    newOfferArray?.map((item, id) => {
-      if (item?.minStay === item?.maxStay) {
-        const myVar = item?.breakdown[1]?.price || item?.breakdown[0]?.price || item?.breakdown[2]?.price
-        if (bestPossiblePrice > myVar) {
-          bestPossiblePrice = myVar
-        }
+  newOfferArray?.map((item, id) => {
+    if (item?.minStay === item?.maxStay) {
+      const myVar = item?.breakdown[1]?.price || item?.breakdown[0]?.price || item?.breakdown[2]?.price
+      if (bestPossiblePrice > myVar) {
+        bestPossiblePrice = myVar
       }
-      else {
-        let calculatedNights =  Math.abs((new Date(checkInDate) - new Date(checkOutDate)) / (1000 * 60 * 60 * 24));
-        if(calculatedNights<item?.minStay){
-          calculatedNights=item.minStay
-        }
-        else if(calculatedNights>item?.maxStay){
-          calculatedNights=item.maxStay
-        }
-        const myVar2 = (item?.breakdown[1]?.price ||
-          item?.breakdown[0]?.price ||
-          item?.breakdown[2]?.price) * calculatedNights
-
-          if (bestPossiblePrice > myVar2) {
-          bestPossiblePrice=myVar2
-        }
+    }
+    else {
+      let calculatedNights = Math.abs((new Date(checkInDate) - new Date(checkOutDate)) / (1000 * 60 * 60 * 24));
+      if (calculatedNights < item?.minStay) {
+        calculatedNights = item.minStay
       }
-      hotel.bestPossiblePrice=bestPossiblePrice;
+      else if (calculatedNights > item?.maxStay) {
+        calculatedNights = item.maxStay
+      }
+      const myVar2 = (item?.breakdown[1]?.price ||
+        item?.breakdown[0]?.price ||
+        item?.breakdown[2]?.price) * calculatedNights
 
-    })
-    hotel.finalOffers=newOfferArray
+      if (bestPossiblePrice > myVar2) {
+        bestPossiblePrice = myVar2
+      }
+    }
+    hotel.bestPossiblePrice = bestPossiblePrice;
+
+  })
+  hotel.finalOffers = newOfferArray
 
   // console.log(newOfferArray , " :: newOfferArray")
 
@@ -400,21 +400,19 @@ const OfferItem = (props, ref) => {
       <div
         className="offer-item-top"
         style={{
-          background: `url(${
-            offer
+          background: `url(${offer
               ? index % 3 === 0
                 ? bg_4
                 : index % 3 === 1
-                ? bg_2
-                : bg_3
+                  ? bg_2
+                  : bg_3
               : bg_1
-          }) no-repeat center center / cover`,
+            }) no-repeat center center / cover`,
         }}
       >
         <div
-          className={`offer-item-top-top d-flex justify-content-between align-items-center ${
-            hotel.ticker ? "has-ticker" : ""
-          }
+          className={`offer-item-top-top d-flex justify-content-between align-items-center ${hotel.ticker ? "has-ticker" : ""
+            }
 					`}
         >
           <div className="rating">
@@ -427,21 +425,21 @@ const OfferItem = (props, ref) => {
             )}
           </div>
 
-          <div className={`price-area d-flex flex-col ${index<=2 ? "bestOffers" : ""}`}>
-            <div>A PARTIRE DA (giorno)</div>
+          <div className={`price-area d-flex flex-col ${index <= 2 ? "bestOffers" : ""}`}>
+            <div>FROM (day)</div>
             <h4
               className="font-bold align-self-end"
               style={{ color: "var(--title)" }}
             >
               {(lowestOffered && lowestOffered?.lowestOfferPrice) || bestPossiblePrice}
               {lowestOffered && lowestOffered?.breakdown[0]?.currency}
-              
+
             </h4>
           </div>
 
-          {index<=2 || hotel.ticker ? (
+          {index <= 2 || hotel.ticker ? (
             <span className="ticker d-none d-md-flex ">
-              <span>{(index === 1 && "Più venduto") || (index === 2 && "Prezzo più basso")}</span>
+              <span>{(index === 1 && "Best Seller") || (index === 2 && "Lowest Price")}</span>
             </span>
           ) : (
             ""
@@ -455,15 +453,15 @@ const OfferItem = (props, ref) => {
                 WebkitMask: `url(${mask}) no-repeat center center / contain`,
               }}
             >
-              {hotel?.images.length>1 && <div className="prev-arrow" onClick={handlePrev}>
+              {hotel?.images.length > 1 && <div className="prev-arrow" onClick={handlePrev}>
                 <PrevArrow />
               </div>}
-              {hotel?.images.length>1 && <div className="next-arrow" onClick={handleNext}>
+              {hotel?.images.length > 1 && <div className="next-arrow" onClick={handleNext}>
                 <NextArrow />
               </div>}
-              {index <= 2|| hotel.ticker ? (
+              {index <= 2 || hotel.ticker ? (
                 <span className="ticker d-md-none ">
-                  <span>{hotel.ticker ? hotel.ticker : (index === 1 && "Più venduto") || (index === 2 && "Prezzo più basso")}</span>
+                  <span>{hotel.ticker ? hotel.ticker : (index === 1 && "Best Seller") || (index === 2 && "Lowest Price")}</span>
                 </span>
               ) : (
                 ""
@@ -521,11 +519,11 @@ const OfferItem = (props, ref) => {
               >
                 {offerOpen ? (
                   <span className="text-title">
-                    Chiudi Offerta <AngleUp />
+                    Close Offer <AngleUp />
                   </span>
                 ) : (
                   <span>
-                    Vedi Offerta <AngleDown />
+                    See Offer <AngleDown />
                   </span>
                 )}
               </button>
@@ -546,7 +544,7 @@ const OfferItem = (props, ref) => {
                   <Phone color="#24A9E0" />
                 </div>
                 <div className="cont">
-                  <div>Parliamone!</div>
+                  <div>Let's talk about!</div>
                   <div className="subtxt">{process.env.REACT_APP_PHONE_NUMBER}</div>
                 </div>
               </a>
@@ -561,9 +559,9 @@ const OfferItem = (props, ref) => {
           {loadingOffers ? (
             <OffersLoading />
           ) : newOfferArray && newOfferArray.length ? (
-            
+
             <OfferPriceSlider
-            setSending={setSending}
+              setSending={setSending}
               bestPossiblePrice={bestPossiblePrice}
               setUserData={setUserData}
               userData={userData}

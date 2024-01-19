@@ -13,9 +13,9 @@ const DistanzaSlider = ({ distanzaData }) => {
   // Sort the distanzaData array according to custom conditions
   const sortedData = distanzaData.slice().sort((a, b) => {
     const order = {
-      "Distanza dal Centro": 1,
-      "Distanza dal Mare": 2,
-      "Distanza dalle Terme": 3,
+      "Distance from the center": 1,
+      "Distance from the sea": 2,
+      "Distance from spa": 3,
     };
 
     const labelA = a.label;

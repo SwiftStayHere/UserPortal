@@ -3,7 +3,7 @@ When the user searches for and selects the dates, all the offers within three da
 If an hotel doesn’t have any offer that match this criteria, the hotel must be not displayed.
 
 Also there is a logic between all the hotels that will be displayed.
-In the UI there are two main hotel displayed as first. The first hotel has the badge “Più venduto” the second hotel has the badge “Prezzo più basso”.
+In the UI there are two main hotel displayed as first. The first hotel has the badge “Più venduto” the second hotel has the badge “Lowest Price”.
 
 In the hotel document, there is a field called "priority." It consists of numerical values, and based on these values, the hotel with the lowest number should be displayed first, accompanied by the label "Più venduto" badge.
 

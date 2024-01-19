@@ -581,7 +581,7 @@ const MainSection = ({
     fascio: { min: 0, max: 5000 },
     distance: { min: 0, max: 5000 },
     stelle: 0,
-    comune: "Anywhere",
+    comune: "All",
   });
 
   useEffect(() => {
@@ -591,49 +591,49 @@ const MainSection = ({
       ...newFilters,
       comune: config.comune.name,
     };
-    if (config.fascio.name === "fino a 40€") {
+    if (config.fascio.name === "Upto 40€") {
       newFilters = {
         ...newFilters,
         fascio: { min: 0, max: 40 },
       };
-    } else if (config.fascio.name === "tra 40€ e 80€") {
+    } else if (config.fascio.name === "Between 40€ & 80€") {
       newFilters = {
         ...newFilters,
         fascio: { min: 40, max: 80 },
       };
-    } else if (config.fascio.name === "più di 80€") {
+    } else if (config.fascio.name === "more than 80€") {
       newFilters = {
         ...newFilters,
         fascio: { min: 80, max: 5000 },
       };
-    } else if (config.fascio.name === "Tutti") {
+    } else if (config.fascio.name === "All") {
       newFilters = {
         ...newFilters,
         fascio: { min: 0, max: 5000 },
       };
     }
 
-    if (config.stelle.name === "Tutti") {
+    if (config.stelle.name === "All") {
       newFilters = {
         ...newFilters,
         stelle: 0,
       };
-    } else if (config.stelle.name === "2 Stelle") {
+    } else if (config.stelle.name === "2 Stars") {
       newFilters = {
         ...newFilters,
         stelle: 2,
       };
-    } else if (config.stelle.name === "3 Stelle") {
+    } else if (config.stelle.name === "3 Stars") {
       newFilters = {
         ...newFilters,
         stelle: 3,
       };
-    } else if (config.stelle.name === "4 Stelle") {
+    } else if (config.stelle.name === "4 Stars") {
       newFilters = {
         ...newFilters,
         stelle: 4,
       };
-    } else if (config.stelle.name === "5 Stelle") {
+    } else if (config.stelle.name === "5 Stars") {
       newFilters = {
         ...newFilters,
         stelle: 5,
@@ -677,7 +677,7 @@ const MainSection = ({
       if (
         hotel?.bestPossiblePrice <= filters.fascio.max &&
         hotel?.bestPossiblePrice >= filters.fascio.min &&
-        (filters.comune == "Anywhere"
+        (filters.comune == "All"
           ? 1
           : hotel?.state == filters.comune) &&
         (filters.stelle == 0 ? 1 : filters.stelle == hotel?.rating) &&
@@ -714,7 +714,7 @@ const MainSection = ({
         </div>
         <div className="container">
           <h3 className="text-base font-medium m-title">
-          The best offers for you!
+            The best offers for you!
           </h3>
           <div className="d-flex flex-column gap-36">
             {hotels.slice(0, 2).map((hotel, i) => {

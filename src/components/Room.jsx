@@ -43,14 +43,14 @@ function Room({ roomData, id, removeRoom, handleUpdateRoom }) {
     };
     return (
         <div>
-            <h5 className="text-base mt-4 r-title">
-                {`Numero di persone (Stanza ${id + 1})`}{' '}
+            <h5 className="text-base mt-4 r-title" style={{display: "flex", justifyContent: "space-between", width: "48%"}}>
+                <p>{`Number of persons (Room ${id + 1})`}{' '}</p>
                 {id > 0 && (
                     <button
                         className="border-0 outline-0 bg-transparent text-danger d-none d-sm-inline-block"
                         onClick={() => removeRoom(id)}
                     >
-                        Rimuovi stanza {id + 1}
+                        Remove Room {id + 1}
                     </button>
                 )}
             </h5>
@@ -61,7 +61,7 @@ function Room({ roomData, id, removeRoom, handleUpdateRoom }) {
                         select
                         handleChange={handleChange}
                         value={roomData.adult}
-                        label="Adulti"
+                        label="Adults"
                         options={options.adults}
                     />
                 </div>
@@ -69,7 +69,7 @@ function Room({ roomData, id, removeRoom, handleUpdateRoom }) {
                     <Input
                         name="child"
                         value={roomData.child}
-                        label="Bambini"
+                        label="Children"
                         handleChange={(e) => {
                             handleNoofChildren(e.target.value);
                         }}
@@ -87,7 +87,7 @@ function Room({ roomData, id, removeRoom, handleUpdateRoom }) {
                             }}
                             select
                             options={options.childAge}
-                            label={`Età ${i + 1}`}
+                            label={`Age ${i + 1}`}
                             placeholder="DD/MM/YY"
                         />
                     </div>

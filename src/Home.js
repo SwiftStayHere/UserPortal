@@ -323,16 +323,16 @@ function Home() {
     }
   }, [hotels]);
 
-  let newcomunes = [{ name: "Anywhere" }];
+  let newcomunes = [{ name: "All" }];
   let communeSet = new Set(newcomunes.map((item) => item.name));
 
-  let newstars = [{ name: "Tutti" }];
+  let newstars = [{ name: "All" }];
   let starsSet = new Set(newstars.map((item) => item.name));
 
-  let newprice = [{ name: "Tutti", value: 0 }];
+  let newprice = [{ name: "All", value: 0 }];
   let priceSet = new Set(newprice.map((item) => item.name));
 
-  let newdistance = [{ name: "Tutti", value: 0 }];
+  let newdistance = [{ name: "All", value: 0 }];
   let distanceSet = new Set(newdistance.map((item) => item.name));
 
   hotels.forEach((hotel) => {
@@ -341,25 +341,28 @@ function Home() {
       newcomunes.push({ name: hotel?.state });
     }
 
-    let formattedRating = hotel?.rating + " Stelle";
+    let formattedRating = hotel?.rating + " Stars";
     if (!starsSet.has(formattedRating)) {
       starsSet.add(formattedRating);
       newstars.push({ name: formattedRating });
     }
 
-    if (hotel?.bestPossiblePrice < 40 && !priceSet.has("fino a 40€")) {
-      priceSet.add("fino a 40€");
-      newprice.push({ name: "fino a 40€", value: newprice.length });
+    if (hotel?.bestPossiblePrice < 40 && !priceSet.has("Upto 40€")) {
+      priceSet.add("Upto 40€");
+      newprice.push({ name: "Upto 40€", value: newprice.length });
     } else if (
       hotel?.bestPossiblePrice >= 40 &&
       hotel?.bestPossiblePrice <= 80 &&
-      !priceSet.has("tra 40€ e 80€")
+      !priceSet.has("Between 40€ & 80€")
     ) {
-      priceSet.add("tra 40€ e 80€");
-      newprice.push({ name: "tra 40€ e 80€", value: newprice.length });
-    } else if (hotel?.bestPossiblePrice > 80 && !priceSet.has("più di 80€")) {
-      priceSet.add("più di 80€");
-      newprice.push({ name: "più di 80€", value: newprice.length });
+      priceSet.add("Between 40€ & 80€");
+      newprice.push({ name: "Between 40€ & 80€", value: newprice.length });
+    } else if (
+      hotel?.bestPossiblePrice > 80 &&
+      !priceSet.has("more than 80€")
+    ) {
+      priceSet.add("more than 80€");
+      newprice.push({ name: "more than 80€", value: newprice.length });
     }
 
     const distFilterKey = "Mare";
@@ -405,7 +408,7 @@ function Home() {
             initialConfigData={initialConfigData}
             comunes={finalComunes}
             stelles={finalStars}
-            fascias={fascias}
+            fascias={finalPrice}
             distances={finalDistance}
             config={config}
             handleConfigChange={handleConfigChange}

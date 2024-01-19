@@ -131,20 +131,20 @@ export const FaqsItems = ({ data, id }) => {
                             let discountInfo = "";
                             if (item?.discount) {
                               if (discountValue == 100) {
-                                discountInfo = "Gratis";
+                                discountInfo = "Free";
                               }
                               else if (discountValue > 0) {
-                                discountInfo = `${discountValue}% di sconto`;
+                                discountInfo = `${discountValue}% Discount`;
                               } 
                                
                               else{
-                                discountInfo = `${discountValue}€ al giorno`;
+                                discountInfo = `${discountValue}€ per day`;
                               }
                             }
 
                             return (
                               <li key={i}>
-                                {`Bambini da ${ageRangeStart} a ${ageRangeEnd}: ${discountInfo}`}
+                                {`Children from ${ageRangeStart} to ${ageRangeEnd}: ${discountInfo}`}
                               </li>
                             );
                           })}
