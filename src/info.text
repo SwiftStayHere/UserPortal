@@ -1,0 +1,63 @@
+When the user searches for and selects the dates, all the offers within three days before the selected start date and three days after the selected end date must be displayed.
+
+If an hotel doesn’t have any offer that match this criteria, the hotel must be not displayed.
+
+Also there is a logic between all the hotels that will be displayed.
+In the UI there are two main hotel displayed as first. The first hotel has the badge “Più venduto” the second hotel has the badge “Prezzo più basso”.
+
+In the hotel document, there is a field called "priority." It consists of numerical values, and based on these values, the hotel with the lowest number should be displayed first, accompanied by the label "Più venduto" badge.
+
+There is a specific logic for displaying multiple offers on the Hotel page. The goal is to showcase all the offers available from that hotel, starting with the one most suitable for the user. This means the offer that best matches and is closest to the user’s selected dates.
+
+Additionally, we need to consider the number of nights the user has chosen. If the user has selected a stay of 2 nights, the first offers displayed should have a minimum or maximum of 1, 2, or 3 nights (essentially, allowing for a slight flexibility of 1 night).
+
+
+It’s important to note that the number of nights is calculated based on the selected dates. For example, if the user chooses the dates from August 18th to August 20th, there are two nights.
+
+After showing the most suitable offer, the remaining offers should still be sorted by the number of nights, such as offers for 4 nights, 5 nights, and so on.
+However the offers should be still suitable for the dates picked.
+
+The hotel page labeled "Prezzo piú basso" is the one that offers the lowest price among all the hotels displayed.
+The logic for calculating the price is the following:
+
+Here’s an example
+
+OFFER 1:
+Valid between (27/08/2023 - 03/09/2023) Minimum and Maximum Nights = 7
+TOTAL PRICE (due to minimum and maximum equal) 490
+
+OFFER 2:
+Valid between (03/09/2023 - 10/09/2023) Minimum and Maximum Nights = 7
+TOTAL PRICE (due to minimum and maximum equal) 490
+
+OFFER 3:
+Valid between (10/09/2023 - 24/09/2023) Minimum and Maximum Nights = 3 - 7
+PRICE PER DAY (must be calculated based on the nights selected) 60
+
+OFFER 4:
+Valid between (24/09/2023 - 28/10/2023) Minimum and Maximum Nights = 3 - 7
+PRICE PER DAY (must be calculated based on the nights selected) 53
+
+
+HERE SOME CASE:
+
+CASE 1:
+if user has selected 25/08/2023 - 01/09/2023 (so basically 6 days 5 nights)
+you have to show the nearest offer according to the dates and select that one as first offer.
+The offers that have different minimum nights and maximum nights must be calculated as 5 nights by default and must be calculated the price based on that (by the way in this example user has selected 5 nights but will be 4 if user selected 4 and so on)
+
+Also a thing to remember that must be applied to all the case.
+If user has selected a number of nights higher of the maximum nights or smaller than minimum nights must be done two things based on what type of offer is:
+If minimum nights and maximum nights are equal nothing change.
+If minimum nights and maximum nights are different, you have to set where is the text 7 Nights in the UI (MINIMUMNIGHTS Nights - MAXIMUMNIGHTS Nights and you have to calculate the price based on the minimumnights)
+
+CASE 2:
+if user has selected 10/09/2023 - 14/09/2023 (so basically 4 days 3 nights)
+you have to show the nearest offer and select that one as first offer, in this case OFFER 3
+Then you have to show the OFFER 2 (the previous one in chronological order) and the OFFER 4 (the next one) and then all the remaining ones.
+In this case the offer 3 as the others with different minimum and maximum nights will be calculated based on the nights selected by the user
+
+CASE 3:
+If the current date is 28/08/2023, and the user has selected the date range 29/08/2023 - 03/09/2023, OFFER 1 should not be displayed. This is because the Minimum Nights required for the offer are 7, and since it's already the 28th, one night has already passed. Essentially, the offer has expired. You need to perform this check each time, considering both the Minimum Nights and the End date, as described in the previous check.
+
+Additionally, there is an initial price displayed on the hotel user interface (UI) element. This price should be determined using the logic explained above for calculating the cost. It should reflect the lowest price among all the offers presented by the hotel. It’s important to note that not all offers are displayed, only the relevant ones.
