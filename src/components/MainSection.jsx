@@ -103,21 +103,7 @@ const MainSection = ({
       (checkoutDate - checkinDate) / (24 * 60 * 60 * 1000)
     );
 
-    // console.log(offers)
     let list = offers?.filter((offer) => {
-      // if (
-      //   Math.abs(new Date(offer.endDate) - new Date(mainOffer.checkOut)) <=
-      //   3 * 24 * 60 * 60 * 1000
-      // ) {
-      //   console.log(
-      //     Math.abs(new Date(offer.startDate) - new Date(mainOffer.checkIn)) <=
-      //       3 * 24 * 60 * 60 * 1000,
-      //     Math.abs(new Date(offer.endDate) - new Date(mainOffer.checkOut)) <=
-      //       3 * 24 * 60 * 60 * 1000,
-      //     Math.abs(offer.maxStay - MainofferNights) <= 3
-      //   );
-      // }
-
       return (
         Math.abs(new Date(offer.startDate) - new Date(mainOffer.checkIn)) <=
         3 * 24 * 60 * 60 * 1000 &&
@@ -126,14 +112,13 @@ const MainSection = ({
         Math.abs(offer.maxStay - MainofferNights) <= 3
       );
     });
-    // console.log(list)
+
     return list;
   }
 
   // Function to calculate compatibility score based on total price
   function calculateCompatibilityScore(offer, mainOffer) {
     let offerPrice = offerPriceCal(offer);
-    // console.log(offerPrice, mainOffer.price);
     const priceDifference = Math.abs(offerPrice - mainOffer.price);
 
     if (mainOffer.price <= 500) {
@@ -152,17 +137,14 @@ const MainSection = ({
     const result = [];
 
     for (const hoteli of hotels) {
-      // console.log(hoteli.id)
       const compatibleOffers = filterOffersByCriteria(hoteli.offers, mainOffer);
 
       if (compatibleOffers?.length > 0) {
-        // console.log(compatibleOffers)
         const selectedOffer = compatibleOffers.find((offer) => {
           if (offer.id != mainOffer.offerName) {
             return calculateCompatibilityScore(offer, mainOffer);
           }
         });
-        // console.log(selectedOffer.id, mainOffer.offerName);
         if (selectedOffer) {
           result.push({
             hotel: {
@@ -309,7 +291,8 @@ const MainSection = ({
           });
           userId = newUser.data._id;
         }
-      } else {
+      } 
+      else {
         try {
           const response = await axios.put(
             `${values.url}/booking/updating/${userData.Phone}`,
@@ -325,40 +308,13 @@ const MainSection = ({
         }
         userId = res1.data._id;
       }
-    } catch (error) {
+    } 
+    catch (error) {
       console.error("Error fetching user data:", error);
       // Handle the error as needed, e.g., show an error message to the user
       // or perform any necessary cleanup.
     }
-    // {
-    //   userId: userId,
-    //   msg: userData.note,
-    //   tag: [],
-    //   date: new Date(),
-    //   dateLine: `${userData.arrival?.toDateString()} - ${userData.departure?.toDateString()}`,
-    //   periodo: `${new Date(checkOutDate)-new Date(checkInDate)} notti €${localStorage.getItem("priceToBeSent")} per persona`,
-    //   module: "customer support",
-    //   guestDetails: [
-    //     {
-    //       adult: userData.rooms.noofAdults,
-    //       child: userData.rooms.noofChildren,
-    //       childAge: userData.rooms.ages,
-    //     },
-    //   ],
-    //   trasporto: userData.trasporto,
-    //   citta: userData.Citta,
-    //   periodOfStay: "1 week",
-    //   dates: [
-    //     {
-    //       start: userData.arrival,
-    //       end: userData,departure,
-    //       price: localStorage.getItem("priceToBeSent"),
-    //       hotelName: "Riverfront Retreat",
-    //       offerName: "Winter Wonderland Package",
-    //     },
-    //   ],
-    //   boardType: "Mezza Pensione",
-    // }
+
 
     function formatDate(date) {
       const day = date.getDate();
@@ -522,7 +478,6 @@ const MainSection = ({
         boardType: localStorage.getItem("selectedPackage"),
       })
       .then((res) => {
-        console.log(res.data, "h");
         toast.success("Success");
         setSending(false);
         setButtonDisabled(true);
@@ -718,37 +673,6 @@ const MainSection = ({
           </h3>
           <div className="d-flex flex-column gap-36">
             {hotels.slice(0, 2).map((hotel, i) => {
-              // let bestPossiblePrice = 10000;
-              // hotel.offers?.map((item, id) => {
-              //   if (item?.minStay === item?.maxStay) {
-              //     const myVar =
-              //       item?.breakdown[0]?.price ||
-              //       item?.breakdown[1]?.price ||
-              //       item?.breakdown[2]?.price;
-              //     if (bestPossiblePrice > myVar) {
-              //       bestPossiblePrice = myVar;
-              //     }
-              //   } else {
-              //     let calculatedNights = Math.abs(
-              //       (new Date(checkInDate) - new Date(checkOutDate)) /
-              //       (1000 * 60 * 60 * 24)
-              //     );
-              //     if (calculatedNights < item?.minStay) {
-              //       calculatedNights = item.minStay;
-              //     } else if (calculatedNights > item?.maxStay) {
-              //       calculatedNights = item.maxStay;
-              //     }
-              //     const myVar2 =
-              //       (item?.breakdown[0]?.price ||
-              //         item?.breakdown[1]?.price ||
-              //         item?.breakdown[2]?.price) * calculatedNights;
-
-              //     if (bestPossiblePrice > myVar2) {
-              //       bestPossiblePrice = myVar2;
-              //     }
-              //   }
-              //   hotel.bestPossiblePrice = bestPossiblePrice;
-              // });
               let dalMareDistance = hotel?.distance.find((obj) =>
                 obj.label.includes("Mare")
               )?.distance;
@@ -763,8 +687,6 @@ const MainSection = ({
                 <>
                   <OfferItem
                     config={config}
-                    // bestPossiblePrice={bestPossiblePrice}
-                    // setBestPossiblePrice={setBestPossiblePrice}
                     setUserData={setUserData}
                     userData={userData}
                     sending={sending}
@@ -790,44 +712,12 @@ const MainSection = ({
           <br />
           {hotels.length > 2 ? (
             <h3 className="text-base font-medium m-title">
-              Ecco altre offerte che ti potrebbero piacere.
+              Here are other offers you might like.
             </h3>
           ) : (
             <></>
           )}
           {hotels.slice(2).map((hotel, i) => {
-            // let bestPossiblePrice = 10000;
-            // hotel.offers?.map((item, id) => {
-            //   if (item?.minStay === item?.maxStay) {
-            //     const myVar =
-            //       item?.breakdown[0]?.price ||
-            //       item?.breakdown[1]?.price ||
-            //       item?.breakdown[2]?.price;
-            //     if (bestPossiblePrice > myVar) {
-            //       bestPossiblePrice = myVar;
-            //     }
-            //   } else {
-            //     let calculatedNights = Math.abs(
-            //       (new Date(checkInDate) - new Date(checkOutDate)) /
-            //       (1000 * 60 * 60 * 24)
-            //     );
-            //     if (calculatedNights < item?.minStay) {
-            //       calculatedNights = item.minStay;
-            //     } else if (calculatedNights > item?.maxStay) {
-            //       calculatedNights = item.maxStay;
-            //     }
-            //     const myVar2 =
-            //       (item?.breakdown[0]?.price ||
-            //         item?.breakdown[1]?.price ||
-            //         item?.breakdown[2]?.price) * calculatedNights;
-
-            //     if (bestPossiblePrice > myVar2) {
-            //       bestPossiblePrice = myVar2;
-            //     }
-            //   }
-            //   hotel.bestPossiblePrice = bestPossiblePrice;
-            // });
-
             let dalMareDistance = hotel?.distance.find((obj) =>
               obj.label.includes("Mare")
             )?.distance;
@@ -845,8 +735,6 @@ const MainSection = ({
                   sending={sending}
                   setvalue={setValue}
                   value={value}
-                  // bestPossiblePrice={bestPossiblePrice}
-                  // setBestPossiblePrice={setBestPossiblePrice}
                   handleSubmit={handleSubmit}
                   handleUpdateRooms={handleUpdateRooms}
                   buttonDisabled={buttonDisabled}

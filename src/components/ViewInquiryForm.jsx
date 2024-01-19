@@ -7,7 +7,7 @@ import loading from "../assets/img/dualLoading.gif";
 import CustomDatePicker from "./calender/CalenderEnquiry";
 import { europeanCountries, getAllCities } from "./Cities";
 import Input1 from "./Input1";
-  import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
+import { useJsApiLoader, Autocomplete } from "@react-google-maps/api";
 
 const formatDate = (ogDate) => {
   let date = new Date(ogDate);
@@ -69,9 +69,9 @@ const checkDateValidity = (offer, checkInDate, checkOutDate) => {
 };
 // place changed function called when place is changed
 const placeChanged = (place) => {
-  console.log("Place : ",place);
-  console.log("Lat : ",place.geometry.location.lat());
-  console.log("Lon : ",place.geometry.location.lng());
+  console.log("Place : ", place);
+  console.log("Lat : ", place.geometry.location.lat());
+  console.log("Lon : ", place.geometry.location.lng());
 }
 const ViewInquiryForm = (
   {
@@ -117,7 +117,7 @@ const ViewInquiryForm = (
   ref
 ) => {
 
-  const [autocomplete,setAutocomplete] = useState(null);
+  const [autocomplete, setAutocomplete] = useState(null);
 
   const [dateValid, setDateValid] = useState(
     checkDateValidity(offer, checkInDate, checkOutDate)
@@ -165,24 +165,15 @@ const ViewInquiryForm = (
     setMinArrivalDate(minimumArrival);
   }
 
-  useEffect(()=>{
-    // console.log(offer,"offer")
+  useEffect(() => {
     window.actualOffer = offer
-    localStorage.setItem("offer",offer?.id)
-    localStorage.setItem("hotel",Hotel.id)
-    localStorage.setItem("actualName",Hotel.name)
-  },[offer,Hotel])
+    localStorage.setItem("offer", offer?.id)
+    localStorage.setItem("hotel", Hotel.id)
+    localStorage.setItem("actualName", Hotel.name)
+  }, [offer, Hotel])
 
   useEffect(() => {
     setDateValid(checkDateValidity(offer, checkInDate, checkOutDate));
-    // if (arrival && departure) {
-    //     const validity = checkDateValidity(offer, departure, arrival);
-    //     setPrevDateValid(validity);
-    // }
-
-    // setPersistReadOnly({...persistReadOnly,0:true})
-    // setReadOnly()
-
   }, [
     offer["Nome Offerta"],
     offer["Valida dal"],
@@ -198,7 +189,7 @@ const ViewInquiryForm = (
 
   for (let i = new Date(offer.startDate) >= new Date() ? new Date(offer.startDate) : new Date(); i <= new Date(offer.endDate); i.setDate(i.getDate() + 1)) {
     const currentDate = new Date(i) + 1;
-    if(offer.minStay==offer.maxStay){
+    if (offer.minStay == offer.maxStay) {
       if (x % offer.minStay !== 0) {
         disabledDates.push(new Date(currentDate));
       } else {
@@ -242,18 +233,18 @@ const ViewInquiryForm = (
     dateValid,
   ]);
 
-  useEffect(()=>{
+  useEffect(() => {
     userData.Citta = null;
-    userData.bags=null;
-    userData.carSize=null;
+    userData.bags = null;
+    userData.carSize = null;
     userData.trasporto = null;
-    if(value == "ferry"){
-      userData.carSize ="3.98";
+    if (value == "ferry") {
+      userData.carSize = "3.98";
     }
-    else if(value == "viaggio"){
+    else if (value == "viaggio") {
       userData.trasporto = "Bus";
     }
-  },[value])
+  }, [value])
 
   const handleDepartureChange = (value) => {
     const departureDateFromForm = new Date(value);
@@ -282,34 +273,32 @@ const ViewInquiryForm = (
   };
 
   const handleChangeInCity = (place) => {
-      // console.log("Lat : ", place.geometry.location.lat());
-      // console.log("Lon : ", place.geometry.location.lng());
-       console.log(
-         `${
-           cityInput.current.value
-         } (${place.geometry.location.lat()},${place.geometry.location.lng()})`
-       );
+    // console.log("Lat : ", place.geometry.location.lat());
+    // console.log("Lon : ", place.geometry.location.lng());
+    console.log(
+      `${cityInput.current.value
+      } (${place.geometry.location.lat()},${place.geometry.location.lng()})`
+    );
     setUserData({
       ...userData,
-      [cityInput.current.name]: `${
-        cityInput.current.value
-      } (${place.geometry.location.lat()},${place.geometry.location.lng()})`,
+      [cityInput.current.name]: `${cityInput.current.value
+        } (${place.geometry.location.lat()},${place.geometry.location.lng()})`,
     });
   };
   const departureRef = createRef(null);
 
   const arrivalRef = createRef(null);
 
-  useEffect(()=>{
+  useEffect(() => {
     const prevInDate = localStorage.getItem("prevInDate");
     const prevOutDate = localStorage.getItem("prevOutDate");
     var prevInBool = true;
     var prevOutBool = true;
-    for(let j=0;j<=disabledDates.length;j++){
-      if(new Date(disabledDates[j]).toDateString()==new Date(prevInDate).toDateString()){
+    for (let j = 0; j <= disabledDates.length; j++) {
+      if (new Date(disabledDates[j]).toDateString() == new Date(prevInDate).toDateString()) {
         prevInBool = false;
       }
-      if(new Date(disabledDates[j]).toDateString()==new Date(prevOutDate).toDateString()){
+      if (new Date(disabledDates[j]).toDateString() == new Date(prevOutDate).toDateString()) {
         prevOutBool = false;
       }
     }
@@ -318,108 +307,108 @@ const ViewInquiryForm = (
     calStart.setHours(0, 0, 0, 0);
     calEnd.setHours(0, 0, 0, 0);
 
-    if(new Date(prevInDate)>new Date(calEnd) || new Date(prevInDate)<new Date(calStart)){
+    if (new Date(prevInDate) > new Date(calEnd) || new Date(prevInDate) < new Date(calStart)) {
       prevInBool = false;
     }
-    if(new Date(prevOutDate)>new Date(calEnd) || new Date(prevOutDate)<new Date(calStart)){
+    if (new Date(prevOutDate) > new Date(calEnd) || new Date(prevOutDate) < new Date(calStart)) {
       prevOutBool = false;
     }
-    if(offer.minStay == offer.maxStay && new Date(new Date(offer.startDate).getTime() + offer.minStay * 24 * 60 * 60 * 1000).toDateString() == new Date(offer.endDate).toDateString()){
-      let persistReadOnlyNew = {...persistReadOnly}
-      persistReadOnlyNew[idx]=true;
+    if (offer.minStay == offer.maxStay && new Date(new Date(offer.startDate).getTime() + offer.minStay * 24 * 60 * 60 * 1000).toDateString() == new Date(offer.endDate).toDateString()) {
+      let persistReadOnlyNew = { ...persistReadOnly }
+      persistReadOnlyNew[idx] = true;
       setPersistReadOnly(persistReadOnlyNew)
       setReadOnly(persistReadOnlyNew[idx])
 
-      let persistDateNew = {...persistDate}
-      persistDateNew[idx]=new Date(offer.startDate);
+      let persistDateNew = { ...persistDate }
+      persistDateNew[idx] = new Date(offer.startDate);
       setPersistDate(persistDateNew)
       setDeparture(persistDateNew[idx])
 
-      let persistArrivalNew = {...persistArrival}
-      persistArrivalNew[idx]=new Date(offer.endDate);
+      let persistArrivalNew = { ...persistArrival }
+      persistArrivalNew[idx] = new Date(offer.endDate);
       setPersistArrival(persistArrivalNew)
       setArrival(persistArrivalNew[idx])
 
-      let persistReadOnlyNewArrival = {...persistReadOnlyArrival}
-        persistReadOnlyNewArrival[idx]=true;
-        setPersistReadOnlyArrival(persistReadOnlyNewArrival)
-        setReadOnlyArrival(persistReadOnlyNewArrival[idx])
+      let persistReadOnlyNewArrival = { ...persistReadOnlyArrival }
+      persistReadOnlyNewArrival[idx] = true;
+      setPersistReadOnlyArrival(persistReadOnlyNewArrival)
+      setReadOnlyArrival(persistReadOnlyNewArrival[idx])
     }
-    else if(new Date(offer.startDate).toDateString()==new Date(checkInDate).toDateString() && new Date(offer.endDate).toDateString()==new Date(checkOutDate).toDateString()){
-      let persistReadOnlyNew = {...persistReadOnly}
-      persistReadOnlyNew[idx]=false;
+    else if (new Date(offer.startDate).toDateString() == new Date(checkInDate).toDateString() && new Date(offer.endDate).toDateString() == new Date(checkOutDate).toDateString()) {
+      let persistReadOnlyNew = { ...persistReadOnly }
+      persistReadOnlyNew[idx] = false;
       setPersistReadOnly(persistReadOnlyNew)
       setReadOnly(persistReadOnlyNew[idx])
 
-      let persistDateNew = {...persistDate}
-      persistDateNew[idx]=new Date(offer.startDate);
+      let persistDateNew = { ...persistDate }
+      persistDateNew[idx] = new Date(offer.startDate);
       setPersistDate(persistDateNew)
       setDeparture(persistDateNew[idx])
 
-      let persistArrivalNew = {...persistArrival}
-      persistArrivalNew[idx]=new Date(offer.endDate);
+      let persistArrivalNew = { ...persistArrival }
+      persistArrivalNew[idx] = new Date(offer.endDate);
       setPersistArrival(persistArrivalNew)
       setArrival(persistArrivalNew[idx])
 
-      let persistReadOnlyNewArrival = {...persistReadOnlyArrival}
-        persistReadOnlyNewArrival[idx]=true;
-        setPersistReadOnlyArrival(persistReadOnlyNewArrival)
-        setReadOnlyArrival(persistReadOnlyNewArrival[idx])
+      let persistReadOnlyNewArrival = { ...persistReadOnlyArrival }
+      persistReadOnlyNewArrival[idx] = true;
+      setPersistReadOnlyArrival(persistReadOnlyNewArrival)
+      setReadOnlyArrival(persistReadOnlyNewArrival[idx])
     }
-    else if(new Date(offer.endDate).toDateString() == new Date(new Date() + 1 + offer.minStay).toDateString()){
-      let persistReadOnlyNew = {...persistReadOnly}
-      persistReadOnlyNew[idx]=true;
+    else if (new Date(offer.endDate).toDateString() == new Date(new Date() + 1 + offer.minStay).toDateString()) {
+      let persistReadOnlyNew = { ...persistReadOnly }
+      persistReadOnlyNew[idx] = true;
       setPersistReadOnly(persistReadOnlyNew)
       setReadOnly(persistReadOnlyNew[idx])
 
-      let persistDateNew = {...persistDate}
-      persistDateNew[idx]=new Date(new Date(offer.endDate) - offer.minStay);
+      let persistDateNew = { ...persistDate }
+      persistDateNew[idx] = new Date(new Date(offer.endDate) - offer.minStay);
       setPersistDate(persistDateNew)
       setDeparture(persistDateNew[idx])
 
-      let persistArrivalNew = {...persistArrival}
-      persistArrivalNew[idx]=new Date(offer.endDate);
+      let persistArrivalNew = { ...persistArrival }
+      persistArrivalNew[idx] = new Date(offer.endDate);
       setPersistArrival(persistArrivalNew)
       setArrival(persistArrivalNew[idx])
 
-      let persistReadOnlyNewArrival = {...persistReadOnlyArrival}
-        persistReadOnlyNewArrival[idx]=true;
-        setPersistReadOnlyArrival(persistReadOnlyNewArrival)
-        setReadOnlyArrival(persistReadOnlyNewArrival[idx])
+      let persistReadOnlyNewArrival = { ...persistReadOnlyArrival }
+      persistReadOnlyNewArrival[idx] = true;
+      setPersistReadOnlyArrival(persistReadOnlyNewArrival)
+      setReadOnlyArrival(persistReadOnlyNewArrival[idx])
     }
-    else if (prevInBool && prevOutBool){
-      let persistReadOnlyNew = {...persistReadOnly}
-      persistReadOnlyNew[idx]=false;
+    else if (prevInBool && prevOutBool) {
+      let persistReadOnlyNew = { ...persistReadOnly }
+      persistReadOnlyNew[idx] = false;
       setPersistReadOnly(persistReadOnlyNew)
       setReadOnly(persistReadOnlyNew[idx])
 
-      let persistDateNew = {...persistDate}
-      persistDateNew[idx]=new Date(prevInDate);
+      let persistDateNew = { ...persistDate }
+      persistDateNew[idx] = new Date(prevInDate);
       setPersistDate(persistDateNew)
       setDeparture(persistDateNew[idx])
 
-      let persistArrivalNew = {...persistArrival}
-      persistArrivalNew[idx]=new Date(prevOutDate);
+      let persistArrivalNew = { ...persistArrival }
+      persistArrivalNew[idx] = new Date(prevOutDate);
       setPersistArrival(persistArrivalNew)
       setArrival(persistArrivalNew[idx])
 
-      let persistReadOnlyNewArrival = {...persistReadOnlyArrival}
-        persistReadOnlyNewArrival[idx]=false;
-        setPersistReadOnlyArrival(persistReadOnlyNewArrival)
-        setReadOnlyArrival(persistReadOnlyNewArrival[idx])
+      let persistReadOnlyNewArrival = { ...persistReadOnlyArrival }
+      persistReadOnlyNewArrival[idx] = false;
+      setPersistReadOnlyArrival(persistReadOnlyNewArrival)
+      setReadOnlyArrival(persistReadOnlyNewArrival[idx])
     }
-    else{
-      let persistReadOnlyNewArrival = {...persistReadOnlyArrival}
-        persistReadOnlyNewArrival[idx]=true;
-        setPersistReadOnlyArrival(persistReadOnlyNewArrival)
-        setReadOnlyArrival(persistReadOnlyNewArrival[idx])
+    else {
+      let persistReadOnlyNewArrival = { ...persistReadOnlyArrival }
+      persistReadOnlyNewArrival[idx] = true;
+      setPersistReadOnlyArrival(persistReadOnlyNewArrival)
+      setReadOnlyArrival(persistReadOnlyNewArrival[idx])
     }
-    localStorage.setItem("selectedPackage",selectedPackage[0].name)
-  },[idx])
+    localStorage.setItem("selectedPackage", selectedPackage[0].name)
+  }, [idx])
   const handleAddRoom = () => {
     setUserData({
       ...userData,
-      rooms: [...userData.rooms, { adult: 2, child: 1, childAge: [1] ,totDisc:"€ 0",childDis: ["€ 0"],adultPrice:[0,0],childInit:[],board:localStorage.getItem("selectedPackage")}],
+      rooms: [...userData.rooms, { adult: 2, child: 1, childAge: [1], totDisc: "€ 0", childDis: ["€ 0"], adultPrice: [0, 0], childInit: [], board: localStorage.getItem("selectedPackage") }],
     });
   };
 
@@ -437,7 +426,7 @@ const ViewInquiryForm = (
 
   const [city, setCity] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const {isLoaded} = useJsApiLoader({
+  const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyBen1zTUuynCgRfIStX1NqhEp_eHat4n0k',
     libraries: ['places']
   })
@@ -446,568 +435,516 @@ const ViewInquiryForm = (
     const inputValue = event.target.value;
     setCity(inputValue);
     const apiKey = 'AIzaSyBen1zTUuynCgRfIStX1NqhEp_eHat4n0k'; // Replace with your SwiftComplete API key
-
-    
-    // const europeanCountries = [
-    //   'al', 'ad', 'at', 'by', 'be', 'ba', 'bg', 'hr', 'cy', 'cz', 'dk', 'ee', 'fi', 'fr', 'de', 'gr', 'hu',
-    //   'is', 'ie', 'it', 'kosovo', 'lv', 'li', 'lt', 'lu', 'mk', 'mt', 'md', 'mc', 'me', 'nl', 'no', 'pl', 'pt',
-    //   'ro', 'ru', 'sm', 'rs', 'sk', 'si', 'es', 'se', 'ch', 'ua', 'gb', 'va'
-    // ];
-
-    // const europeanCountriesString = europeanCountries.join(',');
-
-    // const url = `https://api.swiftcomplete.com/v1/places/?key=${apiKey}&countries=${europeanCountriesString}&text=${inputValue}&maxResults=5`;
-
-    //  fetch(url)
-    //   .then((response) => response.json())
-    //   .then(async(data) => {
-    //     // Extract suggestions from the API response
-    //     const citySuggestions = data.map((result) => result.type.includes("place.settlement") ? result.primary.text : null);
-    //     const translatedCityPromises = citySuggestions.map(async (cityName) => {
-    //       const translationResponse = await fetch(
-    //         `https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=it&dt=t&q=${encodeURIComponent(
-    //           cityName
-    //         )}`
-    //       );
-    //         if(cityName){
-    //           const translatedCityName = await translationResponse.json();
-    //           return translatedCityName[0][0][0]; // Extract the translated city name
-
-    //         }
-    //         else{
-    //           return null;
-    //         }
-    //     });
-
-    //     // Wait for all translations to complete before setting the state
-    //     const translatedCityNames = await Promise.all(translatedCityPromises);
-    //     const displayArr = translatedCityNames.filter((item,index) => translatedCityNames.indexOf(item) === index);
-    //     setSuggestions(displayArr);
-    //     // Now you can use citySuggestions in your application.
-    //   })
-    //   .catch((error) => console.error('Error fetching city suggestions:', error));
-
-    
   };
 
-    function calculateSelectableCheckInDates() {
-      const selectableCheckInDates = [];
-      let currentDateIterator = new Date(offer.startDate);
+  function calculateSelectableCheckInDates() {
+    const selectableCheckInDates = [];
+    let currentDateIterator = new Date(offer.startDate);
 
-      while (currentDateIterator < new Date(new Date(offer.endDate).getTime() - (offer.maxStay * 24 * 60 * 60 * 1000))) {
-        if (currentDateIterator > Date()) {
-          selectableCheckInDates.push(new Date(currentDateIterator));
-        }
-        currentDateIterator.setDate(currentDateIterator.getDate() + offer.minStay);
+    while (currentDateIterator < new Date(new Date(offer.endDate).getTime() - (offer.maxStay * 24 * 60 * 60 * 1000))) {
+      if (currentDateIterator > Date()) {
+        selectableCheckInDates.push(new Date(currentDateIterator));
       }
-
-      return selectableCheckInDates;
+      currentDateIterator.setDate(currentDateIterator.getDate() + offer.minStay);
     }
-const getHighlightDates = (dates) => {
-  const highlight = {};
-  dates.forEach(date => {
-    highlight[date] = 'non-selectable'; // 'non-selectable' will add a class to disable these dates
-  });
-  return highlight;
-};
-const val = calculateSelectableCheckInDates();
-// function calculateSelectableCheckOutDates(selectedCheckInDate) {
-//   const selectableCheckOutDates = [];
-//   let currentCheckOutDate = new Date(selectedCheckInDate);
 
-//   while (currentCheckOutDate < new Date(offer.endDate)) {
-//     selectableCheckOutDates.push(new Date(currentCheckOutDate));
-//     currentCheckOutDate.setDate(new Date(currentCheckOutDate).getDate() + offer.minStay);
-//   }
+    return selectableCheckInDates;
+  }
+  const getHighlightDates = (dates) => {
+    const highlight = {};
+    dates.forEach(date => {
+      highlight[date] = 'non-selectable'; // 'non-selectable' will add a class to disable these dates
+    });
+    return highlight;
+  };
+  const val = calculateSelectableCheckInDates();
 
-//   return selectableCheckOutDates;
-// }
-return (
-  <>
-    {userData ? (
-      <>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            setSending(true)
-            if (!clicked) {
-              setClicked(true);
-              setTimeout(() => {
-                handleSubmit(
-                  formatDate(arrival),
-                  formatDate(departure),
-                  NomeModulo,
-                  Hotel,
-                  totalPriceForUser,
-                  selectedPackage.text,
-                  handleScroll,
-                  handleOfferClose
-                );
-                setClicked(false);
-              }, 1000);
-            }
-          }}
-          className="inquiry--form"
-        >
-          <div className="row g-3">
-            <div className="col-sm-6 col-md-3">
-              <Input
-                required={true}
-                type="text"
-                value={userData.Nome}
-                name="Nome"
-                handleChange={handleChange}
-                label="Name"
-                placeholder="Your name"
-              />
-            </div>
-            <div className="col-sm-6 col-md-3 relative">
-              <div>
+  return (
+    <>
+      {userData ? (
+        <>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              setSending(true)
+              if (!clicked) {
+                setClicked(true);
+                setTimeout(() => {
+                  handleSubmit(
+                    formatDate(arrival),
+                    formatDate(departure),
+                    NomeModulo,
+                    Hotel,
+                    totalPriceForUser,
+                    selectedPackage.text,
+                    handleScroll,
+                    handleOfferClose
+                  );
+                  setClicked(false);
+                }, 1000);
+              }
+            }}
+            className="inquiry--form"
+          >
+            <div className="row g-3">
+              <div className="col-sm-6 col-md-3">
                 <Input
                   required={true}
                   type="text"
-                  name="Cognome"
-                  value={userData.Cognome}
+                  value={userData.Nome}
+                  name="Nome"
                   handleChange={handleChange}
-                  label="Surname"
-                  placeholder="Your surname"
+                  label="Name"
+                  placeholder="Your name"
                 />
               </div>
-            </div>
-            <div className="col-sm-6 col-md-3">
-              <Input
-                required
-                type="email"
-                label="E-mail "
-                value={userData.Email}
-                handleChange={handleChange}
-                name="Email"
-                placeholder="Your email"
-              />
-            </div>
-            <div className="col-sm-6 col-md-3">
-              <Input
-                required
-                label="Telephone number"
-                type="tel"
-                value={userData.Phone}
-                handleChange={handleChange}
-                name="Phone"
-                placeholder="1234567890"
-              />
-            </div>
-            <div className="col-sm-6 col-md-3 col-lg-2 relative">
-              <div
-                className="right-sm-0 w-100"
-                style={{ opacity: `${readOnly ? "0.8" : "1"}` }}
-              >
-                {offer.minStay != offer.maxStay ? (
-                  <CustomDatePicker
-                    setDatePickerOpen={setDatePickerOpen}
-                    minDate={
-                      new Date(offer.startDate) >= new Date()
-                        ? new Date(offer.startDate)
-                        : new Date() + 1
-                    }
-                    maxDate={
-                      new Date(
-                        new Date(offer.endDate).getTime() -
-                          offer.minStay * 24 * 60 * 60 * 1000
-                      )
-                    }
-                    selected={departure}
-                    label="Check In Date"
-                    placeholder="Select the date"
-                    handleChange={(value) => {
-                      let persistDateNew = { ...persistDate };
-                      persistDateNew[idx] = value;
-                      setDeparture(value);
-                      handleDepartureChange(value);
-                      setPersistDate(persistDateNew);
-
-                      localStorage.setItem("prevInDate", value);
-
-                      let persistReadOnlyNewArrival = {
-                        ...persistReadOnlyArrival,
-                      };
-                      persistReadOnlyNewArrival[idx] = false;
-                      setPersistReadOnlyArrival(persistReadOnlyNewArrival);
-                      setReadOnlyArrival(persistReadOnlyNewArrival[idx]);
-                    }}
-                    setDeparture={setDeparture}
-                    readOnly={readOnly}
-                    persistDate={persistDate[idx]}
-                    setArrival={setArrival}
-                    persistArrival={persistArrival[idx]}
+              <div className="col-sm-6 col-md-3 relative">
+                <div>
+                  <Input
+                    required={true}
+                    type="text"
+                    name="Cognome"
+                    value={userData.Cognome}
+                    handleChange={handleChange}
+                    label="Surname"
+                    placeholder="Your surname"
                   />
-                ) : (
-                  <CustomDatePicker
-                    setDatePickerOpen={setDatePickerOpen}
-                    minDate={
-                      new Date(offer.startDate) >= new Date()
-                        ? new Date(offer.startDate)
-                        : new Date() + 1
-                    }
-                    maxDate={
-                      new Date(
-                        new Date(offer.endDate).getTime() -
-                          offer.minStay * 24 * 60 * 60 * 1000
-                      )
-                    }
-                    selected={departure}
-                    isDateDisabled={disabledDates}
-                    label="Check In date"
-                    placeholder="Select the date"
-                    handleChange={(value) => {
-                      let persistDateNew = { ...persistDate };
-                      persistDateNew[idx] = value;
-                      setDeparture(value);
-                      handleDepartureChange(value);
-                      setPersistDate(persistDateNew);
-
-                      localStorage.setItem("prevInDate", value);
-
-                      let persistReadOnlyNewArrival = {
-                        ...persistReadOnlyArrival,
-                      };
-                      persistReadOnlyNewArrival[idx] = false;
-                      setPersistReadOnlyArrival(persistReadOnlyNewArrival);
-                      setReadOnlyArrival(persistReadOnlyNewArrival[idx]);
-                    }}
-                    setDeparture={setDeparture}
-                    readOnly={readOnly}
-                    persistDate={persistDate[idx]}
-                    setArrival={setArrival}
-                    persistArrival={persistArrival[idx]}
-                  />
-                )}
+                </div>
               </div>
-            </div>
-            <div className="col-sm-6 col-md-3 col-lg-2 relative">
-              <div
-                className="right-sm-0 w-100"
-                style={{ opacity: `${readOnlyArrival ? "0.8" : "1"}` }}
-              >
-                {offer.minStay != offer.maxStay ? (
-                  <CustomDatePicker
-                    minDate={
-                      offer.minStay != offer.maxStay
-                        ? new Date(
+              <div className="col-sm-6 col-md-3">
+                <Input
+                  required
+                  type="email"
+                  label="E-mail "
+                  value={userData.Email}
+                  handleChange={handleChange}
+                  name="Email"
+                  placeholder="Your email"
+                />
+              </div>
+              <div className="col-sm-6 col-md-3">
+                <Input
+                  required
+                  label="Telephone number"
+                  type="tel"
+                  value={userData.Phone}
+                  handleChange={handleChange}
+                  name="Phone"
+                  placeholder="1234567890"
+                />
+              </div>
+              <div className="col-sm-6 col-md-3 col-lg-2 relative">
+                <div
+                  className="right-sm-0 w-100"
+                  style={{ opacity: `${readOnly ? "0.8" : "1"}` }}
+                >
+                  {offer.minStay != offer.maxStay ? (
+                    <CustomDatePicker
+                      setDatePickerOpen={setDatePickerOpen}
+                      minDate={
+                        new Date(offer.startDate) >= new Date()
+                          ? new Date(offer.startDate)
+                          : new Date() + 1
+                      }
+                      maxDate={
+                        new Date(
+                          new Date(offer.endDate).getTime() -
+                          offer.minStay * 24 * 60 * 60 * 1000
+                        )
+                      }
+                      selected={departure}
+                      label="Check In Date"
+                      placeholder="Select the date"
+                      handleChange={(value) => {
+                        let persistDateNew = { ...persistDate };
+                        persistDateNew[idx] = value;
+                        setDeparture(value);
+                        handleDepartureChange(value);
+                        setPersistDate(persistDateNew);
+
+                        localStorage.setItem("prevInDate", value);
+
+                        let persistReadOnlyNewArrival = {
+                          ...persistReadOnlyArrival,
+                        };
+                        persistReadOnlyNewArrival[idx] = false;
+                        setPersistReadOnlyArrival(persistReadOnlyNewArrival);
+                        setReadOnlyArrival(persistReadOnlyNewArrival[idx]);
+                      }}
+                      setDeparture={setDeparture}
+                      readOnly={readOnly}
+                      persistDate={persistDate[idx]}
+                      setArrival={setArrival}
+                      persistArrival={persistArrival[idx]}
+                    />
+                  ) : (
+                    <CustomDatePicker
+                      setDatePickerOpen={setDatePickerOpen}
+                      minDate={
+                        new Date(offer.startDate) >= new Date()
+                          ? new Date(offer.startDate)
+                          : new Date() + 1
+                      }
+                      maxDate={
+                        new Date(
+                          new Date(offer.endDate).getTime() -
+                          offer.minStay * 24 * 60 * 60 * 1000
+                        )
+                      }
+                      selected={departure}
+                      isDateDisabled={disabledDates}
+                      label="Check In date"
+                      placeholder="Select the date"
+                      handleChange={(value) => {
+                        let persistDateNew = { ...persistDate };
+                        persistDateNew[idx] = value;
+                        setDeparture(value);
+                        handleDepartureChange(value);
+                        setPersistDate(persistDateNew);
+
+                        localStorage.setItem("prevInDate", value);
+
+                        let persistReadOnlyNewArrival = {
+                          ...persistReadOnlyArrival,
+                        };
+                        persistReadOnlyNewArrival[idx] = false;
+                        setPersistReadOnlyArrival(persistReadOnlyNewArrival);
+                        setReadOnlyArrival(persistReadOnlyNewArrival[idx]);
+                      }}
+                      setDeparture={setDeparture}
+                      readOnly={readOnly}
+                      persistDate={persistDate[idx]}
+                      setArrival={setArrival}
+                      persistArrival={persistArrival[idx]}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="col-sm-6 col-md-3 col-lg-2 relative">
+                <div
+                  className="right-sm-0 w-100"
+                  style={{ opacity: `${readOnlyArrival ? "0.8" : "1"}` }}
+                >
+                  {offer.minStay != offer.maxStay ? (
+                    <CustomDatePicker
+                      minDate={
+                        offer.minStay != offer.maxStay
+                          ? new Date(
                             new Date(departure).getTime() +
-                              offer.minStay * 24 * 60 * 60 * 1000
+                            offer.minStay * 24 * 60 * 60 * 1000
                           )
-                        : new Date(departure)
-                    }
-                    maxDate={new Date(offer.endDate)}
-                    setDatePickerOpen={setDatePickerOpen}
-                    selected={arrival}
-                    label="Check Out Date"
-                    placeholder="Select arrival date"
-                    handleChange={(value) => {
-                      setArrival(value);
-                      handleArrivalChange(value);
-                      let persistArrivalNew = { ...persistArrival };
-                      persistArrivalNew[idx] = value;
-                      setPersistArrival(persistArrivalNew);
-                      localStorage.setItem("prevOutDate", value);
-                    }}
-                    setDeparture={setDeparture}
-                    readOnly={readOnlyArrival}
-                    persistDate={persistDate[idx]}
-                    setArrival={setArrival}
-                    persistArrival={persistArrival[idx]}
-                  />
-                ) : (
-                  <CustomDatePicker
-                    minDate={
-                      offer.minStay != offer.maxStay
-                        ? new Date(
+                          : new Date(departure)
+                      }
+                      maxDate={new Date(offer.endDate)}
+                      setDatePickerOpen={setDatePickerOpen}
+                      selected={arrival}
+                      label="Check Out Date"
+                      placeholder="Select arrival date"
+                      handleChange={(value) => {
+                        setArrival(value);
+                        handleArrivalChange(value);
+                        let persistArrivalNew = { ...persistArrival };
+                        persistArrivalNew[idx] = value;
+                        setPersistArrival(persistArrivalNew);
+                        localStorage.setItem("prevOutDate", value);
+                      }}
+                      setDeparture={setDeparture}
+                      readOnly={readOnlyArrival}
+                      persistDate={persistDate[idx]}
+                      setArrival={setArrival}
+                      persistArrival={persistArrival[idx]}
+                    />
+                  ) : (
+                    <CustomDatePicker
+                      minDate={
+                        offer.minStay != offer.maxStay
+                          ? new Date(
                             new Date(departure).getTime() +
-                              offer.minStay * 24 * 60 * 60 * 1000
+                            offer.minStay * 24 * 60 * 60 * 1000
                           )
-                        : new Date(
+                          : new Date(
                             new Date(departure).getTime() + 24 * 60 * 60 * 1000
                           )
-                    }
-                    maxDate={new Date(offer.endDate)}
-                    setDatePickerOpen={setDatePickerOpen}
-                    isDateDisabled={disabledDates}
-                    selected={arrival}
-                    label="Check Out Date"
-                    placeholder="Select arrival Date"
-                    handleChange={(value) => {
-                      setArrival(value);
-                      handleArrivalChange(value);
-                      let persistArrivalNew = { ...persistArrival };
-                      persistArrivalNew[idx] = value;
-                      setPersistArrival(persistArrivalNew);
-                      localStorage.setItem("prevOutDate", value);
-                    }}
-                    setDeparture={setDeparture}
-                    readOnly={readOnlyArrival}
-                    persistDate={persistDate[idx]}
-                    setArrival={setArrival}
-                    persistArrival={persistArrival[idx]}
-                  />
-                )}
+                      }
+                      maxDate={new Date(offer.endDate)}
+                      setDatePickerOpen={setDatePickerOpen}
+                      isDateDisabled={disabledDates}
+                      selected={arrival}
+                      label="Check Out Date"
+                      placeholder="Select arrival Date"
+                      handleChange={(value) => {
+                        setArrival(value);
+                        handleArrivalChange(value);
+                        let persistArrivalNew = { ...persistArrival };
+                        persistArrivalNew[idx] = value;
+                        setPersistArrival(persistArrivalNew);
+                        localStorage.setItem("prevOutDate", value);
+                      }}
+                      setDeparture={setDeparture}
+                      readOnly={readOnlyArrival}
+                      persistDate={persistDate[idx]}
+                      setArrival={setArrival}
+                      persistArrival={persistArrival[idx]}
+                    />
+                  )}
+                </div>
+              </div>
+              <div className="col-sm-6 col-md-3 col-lg-2">
+                <Input
+                  value={selectItems[selectedPackage]}
+                  handleChange={(e) => {
+                    selectItems.forEach((item, i) => {
+                      if (item?.price != 0) setSelectedPackage(e.target.value);
+                      localStorage.setItem("selectedPackage", e.target.value);
+                    });
+                  }}
+                  name="packageBoard"
+                  label="Package"
+                  select
+                  required
+                  options={breakdownNames}
+                />
               </div>
             </div>
-            <div className="col-sm-6 col-md-3 col-lg-2">
-              <Input
-                value={selectItems[selectedPackage]}
-                handleChange={(e) => {
-                  selectItems.forEach((item, i) => {
-                    if (item?.price != 0) setSelectedPackage(e.target.value);
-                    localStorage.setItem("selectedPackage", e.target.value);
-                  });
-                }}
-                name="packageBoard"
-                label="Package"
-                select
-                required
-                options={breakdownNames}
+
+            {/* <Room room={userData.rooms[0]} id={0} handleUpdateRoom={handleUpdateRooms} /> */}
+
+            {userData.rooms.map((item, i) => (
+              <Room
+                roomData={item}
+                id={i}
+                removeRoom={removeRoom}
+                handleUpdateRoom={handleUpdateRooms}
               />
+            ))}
+
+            <div className="row g-3">
+              <div className="col-sm-6 col-md-3">
+                <span
+                  className="form-control __form-control"
+                  onClick={() => {
+                    handleAddRoom();
+                  }}
+                >
+                  <span>Add Room</span>
+                  <Plus2 />
+                </span>
+              </div>
             </div>
-          </div>
-
-          {/* <Room room={userData.rooms[0]} id={0} handleUpdateRoom={handleUpdateRooms} /> */}
-
-          {userData.rooms.map((item, i) => (
-            <Room
-              roomData={item}
-              id={i}
-              removeRoom={removeRoom}
-              handleUpdateRoom={handleUpdateRooms}
-            />
-          ))}
-
-          <div className="row g-3">
-            <div className="col-sm-6 col-md-3">
-              <span
-                className="form-control __form-control"
-                onClick={() => {
-                  handleAddRoom();
-                }}
-              >
-                <span>Add Room</span>
-                <Plus2 />
-              </span>
-            </div>
-          </div>
-          <h5 ref={optionRef} className="mt-4 r-title">
-            Offer with
-          </h5>
-          <div ref={optionRef} className="__form-radio-group pt-2">
-            <label className="__form-radio">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="offer-with"
-                  checked={value === "none"}
-                  onChange={(e) => setvalue("none")}
-                />
-                <div className="form-check-label">No Options</div>
-              </div>
-              <div className="text">No Transportation Included</div>
-            </label>
-            <label className="__form-radio">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="offer-with"
-                  checked={value === "aliscafo"}
-                  onChange={(e) => setvalue("aliscafo")}
-                />
-                <div className="form-check-label">Hydrofoil + Transfer</div>
-              </div>
-              <div className="text">
-              Hydrofoil from Naples Beverello return €35 including port hotel transfers
-              </div>
-              {value == "aliscafo" && (
-                <>
-                  <br />
-                  <Input
-                    handleChange={handleChange}
-                    name="bags"
-                    type="number"
-                    value={userData.bags}
-                    label="Number of Baggage *"
+            <h5 ref={optionRef} className="mt-4 r-title">
+              Offer with
+            </h5>
+            <div ref={optionRef} className="__form-radio-group pt-2">
+              <label className="__form-radio">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="offer-with"
+                    checked={value === "none"}
+                    onChange={(e) => setvalue("none")}
+                  />
+                  <div className="form-check-label">No Options</div>
+                </div>
+                <div className="text">No Transportation Included</div>
+              </label>
+              <label className="__form-radio">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="offer-with"
+                    checked={value === "aliscafo"}
+                    onChange={(e) => setvalue("aliscafo")}
+                  />
+                  <div className="form-check-label">Hydrofoil + Transfer</div>
+                </div>
+                <div className="text">
+                  Hydrofoil from Naples Beverello return €35 including port hotel transfers
+                </div>
+                {value == "aliscafo" && (
+                  <>
+                    <br />
+                    <Input
+                      handleChange={handleChange}
+                      name="bags"
+                      type="number"
+                      value={userData.bags}
+                      label="Number of Baggage *"
                     // select
                     // options={options}
-                  />
-                </>
-              )}
-            </label>
-            <label className="__form-radio">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="offer-with"
-                  checked={value === "ferry"}
-                  onChange={(e) => setvalue("ferry")}
-                />
-                <div className="form-check-label">Cab + Transfer</div>
-              </div>
-              <div className="text">
-              Ferry from Naples Calata port of Massa or Pozzuoli return €25 including port hotel transfers
-              </div>
-              {value == "ferry" && (
-                <>
-                  <br />
-                  <Input
-                    value={userData.carSize}
-                    handleChange={handleChange}
-                    name={"carSize"}
-                    label="Cab size"
-                    select
-                    options={options2}
-                    //
-                  />
-                </>
-              )}
-            </label>
-            <label className="__form-radio">
-              <div className="form-check">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="offer-with"
-                  checked={value === "viaggio"}
-                  onChange={(e) => setvalue("viaggio")}
-                />
-                <div className="form-check-label">I travel from your city</div>
-              </div>
-              <div className="text">
-              Travel included from your city to hotel drop-off  
-              </div>
-              {value == "viaggio" && (
-                <div className="row g-3 mt-2">
-                  <div className="col-sm-6">
-                    <Input
-                      name="trasporto"
-                      handleChange={handleChange}
-                      value={userData.trasporto}
-                      label="Preferred type of transport"
-                      select
-                      options={options3}
                     />
-                  </div>
-                  <div className="col-sm-6">
-                    <Autocomplete
-                      onLoad={(autocomplete) => setAutocomplete(autocomplete)}
-                      onPlaceChanged={() => {
-                        handleChangeInCity(autocomplete.getPlace());
-                      }}
-                      options={{
-                        types: ["(cities)"],
-                        language: "in",
-                      }}
-        
-                    >
+                  </>
+                )}
+              </label>
+              <label className="__form-radio">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="offer-with"
+                    checked={value === "ferry"}
+                    onChange={(e) => setvalue("ferry")}
+                  />
+                  <div className="form-check-label">Cab + Transfer</div>
+                </div>
+                <div className="text">
+                  Ferry from Naples Calata port of Massa or Pozzuoli return €25 including port hotel transfers
+                </div>
+                {value == "ferry" && (
+                  <>
+                    <br />
+                    <Input
+                      value={userData.carSize}
+                      handleChange={handleChange}
+                      name={"carSize"}
+                      label="Cab size"
+                      select
+                      options={options2}
+                    //
+                    />
+                  </>
+                )}
+              </label>
+              <label className="__form-radio">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    name="offer-with"
+                    checked={value === "viaggio"}
+                    onChange={(e) => setvalue("viaggio")}
+                  />
+                  <div className="form-check-label">I travel from your city</div>
+                </div>
+                <div className="text">
+                  Travel included from your city to hotel drop-off
+                </div>
+                {value == "viaggio" && (
+                  <div className="row g-3 mt-2">
+                    <div className="col-sm-6">
                       <Input
-                        type="text"
-                        label="City of departure"
-                        placeholder="Enter the city of Departure"
-                        value={userData.Citta}
-                        name="Citta"
+                        name="trasporto"
                         handleChange={handleChange}
-                        style={{ fontFamily: "chillax", fontSize: "16px" }}
-                        ref={cityInput}
+                        value={userData.trasporto}
+                        label="Preferred type of transport"
+                        select
+                        options={options3}
                       />
-                    </Autocomplete>
+                    </div>
+                    <div className="col-sm-6">
+                      <Autocomplete
+                        onLoad={(autocomplete) => setAutocomplete(autocomplete)}
+                        onPlaceChanged={() => {
+                          handleChangeInCity(autocomplete.getPlace());
+                        }}
+                        options={{
+                          types: ["(cities)"],
+                          language: "in",
+                        }}
 
-                    {/* <ul className="city-suggestion-list" ref={cityInput}>
+                      >
+                        <Input
+                          type="text"
+                          label="City of departure"
+                          placeholder="Enter the city of Departure"
+                          value={userData.Citta}
+                          name="Citta"
+                          handleChange={handleChange}
+                          style={{ fontFamily: "chillax", fontSize: "16px" }}
+                          ref={cityInput}
+                        />
+                      </Autocomplete>
+
+                      {/* <ul className="city-suggestion-list" ref={cityInput}>
                       {suggestions.map((suggestion, indx) => (
                         suggestion && <li key={indx} onClick={() => { cityInput.current.style.display = "none"; setCity(suggestion) }} className="city-suggestion">{suggestion}</li>
                       ))}
                     </ul> */}
+                    </div>
                   </div>
-                </div>
-              )}
-            </label>
-          </div>
-          <br />
-          <div className="msg-txt mb-4">
-          To offer you the best service, please specify, in the field below, more information for transfers and any needs for your holiday
-
-          </div>
-          <textarea
-            value={userData.note}
-            name="note"
-            onChange={handleChange}
-            className="form-control __form-control p-3"
-            placeholder="Extra Notes, Special Requests, Etc..."
-          ></textarea>
-          <div className="mt-3"></div>
-          <label className="form-check form--check">
-            <input
-              required
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <span className="form-check-label">
-              I have read and consent to the{" "}
-              <a
-                href="#"
-                className="text-base"
-                rel="noreferrer"
-              >
-                processing of my personal data in accordance with European Regulation 679/2016 *
-              </a>
-            </span>
-          </label>
-          <div className="mt-3"></div>
-          <label className="form-check form--check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="flexCheckDefault"
-            />
-            <span className="form-check-label">
-            Dichiaro di volermi iscrivere al servizio newsletter per ricevere Ie migliori offerte
-            </span>
-          </label>
-          {buttonDisabled ? (
-            <div className="pt-4">
-              <button
-                style={{ opacity: 0.7 }}
-                className="cmn-btn w-100"
-                type="button"
-              >
-                Quote Sent
-              </button>
-            </div>
-          ) : (
-            <div className="pt-4">
-              <button className="cmn-btn w-100" type="submit">
-                {sending ? (
-                  <img style={{ width: "25px" }} src={loading} alt="loading" />
-                ) : (
-                  <>
-                    Request Quote <Send />
-                  </>
                 )}
-              </button>
+              </label>
             </div>
-          )}
-        </form>
-      </>
-    ) : (
-      <>
-        <img src={loading} height={"30px"} alt="" />
-      </>
-    )}
-  </>
-);
+            <br />
+            <div className="msg-txt mb-4">
+              To offer you the best service, please specify, in the field below, more information for transfers and any needs for your holiday
+
+            </div>
+            <textarea
+              value={userData.note}
+              name="note"
+              onChange={handleChange}
+              className="form-control __form-control p-3"
+              placeholder="Extra Notes, Special Requests, Etc..."
+            ></textarea>
+            <div className="mt-3"></div>
+            <label className="form-check form--check">
+              <input
+                required
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <span className="form-check-label">
+                I have read and consent to the{" "}
+                <a
+                  href="#"
+                  className="text-base"
+                  rel="noreferrer"
+                >
+                  processing of my personal data in accordance with European Regulation 679/2016 *
+                </a>
+              </span>
+            </label>
+            <div className="mt-3"></div>
+            <label className="form-check form--check">
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="flexCheckDefault"
+              />
+              <span className="form-check-label">
+                Dichiaro di volermi iscrivere al servizio newsletter per ricevere Ie migliori offerte
+              </span>
+            </label>
+            {buttonDisabled ? (
+              <div className="pt-4">
+                <button
+                  style={{ opacity: 0.7 }}
+                  className="cmn-btn w-100"
+                  type="button"
+                >
+                  Quote Sent
+                </button>
+              </div>
+            ) : (
+              <div className="pt-4">
+                <button className="cmn-btn w-100" type="submit">
+                  {sending ? (
+                    <img style={{ width: "25px" }} src={loading} alt="loading" />
+                  ) : (
+                    <>
+                      Request Quote <Send />
+                    </>
+                  )}
+                </button>
+              </div>
+            )}
+          </form>
+        </>
+      ) : (
+        <>
+          <img src={loading} height={"30px"} alt="" />
+        </>
+      )}
+    </>
+  );
 };
 const options2 = [
-  { options: "3.98", text: "traghetto con auto fino 4 mt. da Pozzuoli A/R € 75 - passeggeri € 22", }, { options : "4.48", text : "traghetto con auto tra i 4 mt. fino ai 4.5 mt. da Pozzuoli A/R € 90 - passeggeri € 22", }, { options: "5", text: "traghetto con auto su. ai 4 mt. da Pozzuoli A/R € 100 - passeggeri € 22", },
+  { options: "3.98", text: "traghetto con auto fino 4 mt. da Pozzuoli A/R € 75 - passeggeri € 22", }, { options: "4.48", text: "traghetto con auto tra i 4 mt. fino ai 4.5 mt. da Pozzuoli A/R € 90 - passeggeri € 22", }, { options: "5", text: "traghetto con auto su. ai 4 mt. da Pozzuoli A/R € 100 - passeggeri € 22", },
 ];
 const options3 = [
   {
