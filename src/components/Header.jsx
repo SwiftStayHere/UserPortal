@@ -13,8 +13,9 @@ const Header = () => {
             <header className={`${scrollPosition > 200 ? 'active' : ''}`}>
                 <div className="container">
                     <div className="header-wrapper">
-                        <a className="logo" href="#">
-                            <img src={logo} alt="" />
+                        <a className="logo" href="#" style={{display: "flex", gap: "15px", alignItems: "center"}}>
+                            <img src={logo} alt="" style={{width: "100px"}}/>
+                            <p className='font-bold' style={{fontSize: "30px"}}>SwiftStay</p>
                         </a>
                         <div className={`menu-wrapper ${open ? 'active' : ''}`}>
                             <ul className="menu">
